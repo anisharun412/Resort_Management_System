@@ -28,11 +28,15 @@ public class LoyaltyMemberService {
 
     public org.springframework.data.domain.Page<LoyaltyMember> findAll(
             org.springframework.data.domain.Pageable pageable) {
-        return repository.findAll(pageable);
+        // Using findByDeletedFalse from SoftDeleteRepository if we added it, or we rely
+        // on default behaviour.
+        // Wait, LoyaltyMemberRepository extends SoftDeleteRepository, and I added
+        // findByDeletedFalse(Pageable) there.
+        return repository.findByDeletedFalse(pageable);
     }
 
     public Optional<LoyaltyMember> findById(UUID id) {
-        return repository.findById(id);
+        return repository.findByIdAndDeletedFalse(id);
     }
 
     public LoyaltyMember save(LoyaltyMember entity) {
@@ -49,7 +53,7 @@ public class LoyaltyMemberService {
     }
 
     public LoyaltyMember update(UUID id, LoyaltyMember entity) {
-        return repository.findById(id)
+        return repository.findByIdAndDeletedFalse(id)
                 .map(existing -> {
                     existing.setGuest(entity.getGuest());
                     existing.setPointsBalance(entity.getPointsBalance());
@@ -61,7 +65,7 @@ public class LoyaltyMemberService {
     }
 
     public void deleteById(UUID id) {
-        repository.deleteById(id);
+        repository.softDeleteById(id, java.time.Instant.now());
     }
 
     @Transactional

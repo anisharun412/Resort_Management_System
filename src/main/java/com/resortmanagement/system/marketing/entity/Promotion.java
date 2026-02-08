@@ -63,4 +63,10 @@ public class Promotion extends AuditableSoftDeletable {
         PERCENT,
         AMOUNT
     }
+
+    @jakarta.persistence.ManyToMany
+    @jakarta.persistence.JoinTable(name = "promotion_packages", joinColumns = @jakarta.persistence.JoinColumn(name = "promotion_id"), inverseJoinColumns = @jakarta.persistence.JoinColumn(name = "package_id"))
+    @lombok.ToString.Exclude
+    @lombok.Builder.Default
+    private java.util.List<Package> packages = new java.util.ArrayList<>();
 }

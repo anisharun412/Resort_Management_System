@@ -58,4 +58,9 @@ public class Package extends AuditableSoftDeletable {
 
     @Column
     private Integer usageLimit;
+
+    @jakarta.persistence.ManyToMany(mappedBy = "packages")
+    @ToString.Exclude
+    @Builder.Default
+    private List<Promotion> promotions = new ArrayList<>();
 }

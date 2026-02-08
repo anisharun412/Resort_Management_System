@@ -10,4 +10,7 @@ import java.util.UUID;
 @Repository
 public interface EmployeeRepository extends SoftDeleteRepository<Employee, UUID> {
     java.util.Optional<Employee> findByEmail(String email);
+
+    org.springframework.data.domain.Page<Employee> findByDeletedFalse(
+            org.springframework.data.domain.Pageable pageable);
 }

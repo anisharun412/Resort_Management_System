@@ -18,15 +18,15 @@ public class PackageService {
     }
 
     public org.springframework.data.domain.Page<Package> findAll(org.springframework.data.domain.Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findByDeletedFalse(pageable);
     }
 
     public Optional<Package> findById(UUID id) {
-        return repository.findById(id);
+        return repository.findByIdAndDeletedFalse(id);
     }
 
     public Package update(UUID id, Package entity) {
-        return repository.findById(id)
+        return repository.findByIdAndDeletedFalse(id)
                 .map(existing -> {
                     existing.setName(entity.getName());
                     existing.setDescription(entity.getDescription());
@@ -50,7 +50,6 @@ public class PackageService {
     }
 
     public void deleteById(UUID id) {
-        // TODO: add soft delete if required
-        repository.deleteById(id);
+        repository.softDeleteById(id, java.time.Instant.now());
     }
 }

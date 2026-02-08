@@ -18,11 +18,11 @@ public class RoleService {
     }
 
     public org.springframework.data.domain.Page<Role> findAll(org.springframework.data.domain.Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findByDeletedFalse(pageable);
     }
 
     public Optional<Role> findById(UUID id) {
-        return repository.findById(id);
+        return repository.findByIdAndDeletedFalse(id);
     }
 
     public Role save(Role entity) {
@@ -44,6 +44,6 @@ public class RoleService {
         if (!repository.existsById(id)) {
             throw new RuntimeException("Role not found with id " + id);
         }
-        repository.deleteById(id);
+        repository.softDeleteById(id, java.time.Instant.now());
     }
 }

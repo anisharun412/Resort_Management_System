@@ -21,7 +21,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import com.resortmanagement.system.common.audit.Auditable;
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 
 @Entity
 @Table(name = "payrolls")
@@ -30,7 +30,7 @@ import com.resortmanagement.system.common.audit.Auditable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Payroll extends Auditable {
+public class Payroll extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

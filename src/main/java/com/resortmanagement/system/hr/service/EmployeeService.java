@@ -21,12 +21,12 @@ public class EmployeeService {
     }
 
     public org.springframework.data.domain.Page<Employee> findAll(org.springframework.data.domain.Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findByDeletedFalse(pageable);
     }
 
     public Optional<Employee> findById(UUID id) {
         // TODO: add caching and error handling
-        return repository.findById(id);
+        return repository.findByIdAndDeletedFalse(id);
     }
 
     public Employee save(Employee entity) {
@@ -41,7 +41,7 @@ public class EmployeeService {
     }
 
     public Employee update(UUID id, Employee entity) {
-        return repository.findById(id)
+        return repository.findByIdAndDeletedFalse(id)
                 .map(existing -> {
                     existing.setFirstName(entity.getFirstName());
                     existing.setLastName(entity.getLastName());
@@ -60,12 +60,12 @@ public class EmployeeService {
         if (!repository.existsById(id)) {
             throw new RuntimeException("Employee not found with id " + id);
         }
-        repository.deleteById(id);
+        repository.softDeleteById(id, Instant.now());
     }
 
     public List<Employee> findAvailableEmployees(Instant startTime, Instant endTime) {
         // Placeholder for complex availability logic (checking shifts, leaves, etc.)
-        return repository.findAll().stream()
+        return repository.findByDeletedFalse().stream()
                 .filter(e -> e.getStatus() == Employee.EmployeeStatus.ACTIVE)
                 .toList();
     }

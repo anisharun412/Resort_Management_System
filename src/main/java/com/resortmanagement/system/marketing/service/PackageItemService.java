@@ -19,11 +19,11 @@ public class PackageItemService {
 
     public org.springframework.data.domain.Page<PackageItem> findAll(
             org.springframework.data.domain.Pageable pageable) {
-        return repository.findAll(pageable);
+        return repository.findByDeletedFalse(pageable);
     }
 
     public Optional<PackageItem> findById(UUID id) {
-        return repository.findById(id);
+        return repository.findByIdAndDeletedFalse(id);
     }
 
     public PackageItem save(PackageItem entity) {
@@ -51,7 +51,7 @@ public class PackageItemService {
     }
 
     public PackageItem update(UUID id, PackageItem entity) {
-        return repository.findById(id)
+        return repository.findByIdAndDeletedFalse(id)
                 .map(existing -> {
                     existing.setPkg(entity.getPkg());
                     existing.setRoomType(entity.getRoomType());
@@ -66,6 +66,6 @@ public class PackageItemService {
     }
 
     public void deleteById(UUID id) {
-        repository.deleteById(id);
+        repository.softDeleteById(id, java.time.Instant.now());
     }
 }
