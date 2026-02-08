@@ -12,8 +12,7 @@ File: marketing/controller/PackageController.java
 */
 package com.resortmanagement.system.marketing.controller;
 
-
-import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.resortmanagement.system.marketing.entity.Package;
@@ -39,30 +39,32 @@ public class PackageController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Package>> getAll() {
-        // TODO: add pagination and filtering params
-        return ResponseEntity.ok(this.service.findAll());
+    public ResponseEntity<org.springframework.data.domain.Page<Package>> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ResponseEntity.ok(this.service.findAll(org.springframework.data.domain.PageRequest.of(page, size)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Package> getById(@PathVariable Long id) {
+    public ResponseEntity<Package> getById(@PathVariable UUID id) {
         return this.service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
     public ResponseEntity<Package> create(@RequestBody Package entity) {
-        // TODO: add validation
+        if (entity.getName() == null || entity.getPrice() == null) {
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.ok(this.service.save(entity));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Package> update(@PathVariable Long id, @RequestBody Package entity) {
-        // TODO: implement update logic
-        return ResponseEntity.ok(this.service.save(entity));
+    public ResponseEntity<Package> update(@PathVariable UUID id, @RequestBody Package entity) {
+        return ResponseEntity.ok(this.service.update(id, entity));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.service.deleteById(id);
         return ResponseEntity.noContent().build();
     }

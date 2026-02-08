@@ -26,5 +26,5 @@
 package com.resortmanagement.system.billing.entity;
 
 public class AccountLedger {
-    // TODO: fields, constructors, getters, setters
+   // TODO: fields, constructors, getters, setters
 }

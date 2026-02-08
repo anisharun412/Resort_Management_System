@@ -1,7 +1,7 @@
 package com.resortmanagement.system.hr.service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,33 @@ public class RoleService {
         this.repository = repository;
     }
 
-    public List<Role> findAll() {
-        // TODO: add pagination and filtering
-        return repository.findAll();
+    public org.springframework.data.domain.Page<Role> findAll(org.springframework.data.domain.Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public Optional<Role> findById(Long id) {
-        // TODO: add caching and error handling
+    public Optional<Role> findById(UUID id) {
         return repository.findById(id);
     }
 
     public Role save(Role entity) {
-        // TODO: add validation and business rules
         return repository.save(entity);
     }
 
-    public void deleteById(Long id) {
-        // TODO: add soft delete if required
+    public Role update(UUID id, Role entity) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setName(entity.getName());
+                    existing.setDescription(entity.getDescription());
+                    // Update permissions if needed
+                    return repository.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("Role not found with id " + id));
+    }
+
+    public void deleteById(UUID id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Role not found with id " + id);
+        }
         repository.deleteById(id);
     }
 }

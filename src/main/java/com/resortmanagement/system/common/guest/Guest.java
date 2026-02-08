@@ -41,7 +41,7 @@ public class Guest extends AuditableSoftDeletable {
 
     @Id
     @UuidGenerator
-    @Column(name = "guest_id",columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @Column(name = "guest_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank

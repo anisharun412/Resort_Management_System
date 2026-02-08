@@ -33,19 +33,19 @@ import lombok.Setter;
 public abstract class Auditable {
 
     @CreatedBy
-    @Column(name = "created_by", updatable = false, length=100)
+    @Column(name = "created_by", updatable = false, length = 100)
     private String createdBy;
 
     @CreatedDate
-    @Column(name = "created_at", nullable=false, updatable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
     @LastModifiedBy
-    @Column(name = "updated_by", length=100)
+    @Column(name = "updated_by", length = 100)
     private String updatedBy;
 
     @LastModifiedDate
-    @Column(name = "updated_at", nullable=false)
+    @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 
 }

@@ -1,7 +1,7 @@
 package com.resortmanagement.system.hr.service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,42 @@ public class ShiftScheduleService {
         this.repository = repository;
     }
 
-    public List<ShiftSchedule> findAll() {
-        // TODO: add pagination and filtering
-        return repository.findAll();
+    public org.springframework.data.domain.Page<ShiftSchedule> findAll(
+            org.springframework.data.domain.Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public Optional<ShiftSchedule> findById(Long id) {
-        // TODO: add caching and error handling
+    public Optional<ShiftSchedule> findById(UUID id) {
         return repository.findById(id);
     }
 
     public ShiftSchedule save(ShiftSchedule entity) {
-        // TODO: add validation and business rules
+        if (entity.getEmployee() == null) {
+            throw new IllegalArgumentException("Employee is required");
+        }
+        if (entity.getStartTime().isAfter(entity.getEndTime())) {
+            throw new IllegalArgumentException("Start time cannot be after end time");
+        }
         return repository.save(entity);
     }
 
-    public void deleteById(Long id) {
-        // TODO: add soft delete if required
+    public ShiftSchedule update(UUID id, ShiftSchedule entity) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setEmployee(entity.getEmployee());
+                    existing.setStartTime(entity.getStartTime());
+                    existing.setEndTime(entity.getEndTime());
+                    existing.setPosition(entity.getPosition());
+                    existing.setLocation(entity.getLocation());
+                    return repository.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("ShiftSchedule not found with id " + id));
+    }
+
+    public void deleteById(UUID id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("ShiftSchedule not found with id " + id);
+        }
         repository.deleteById(id);
     }
 }

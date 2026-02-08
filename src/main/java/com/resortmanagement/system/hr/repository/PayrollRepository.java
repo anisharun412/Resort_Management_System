@@ -1,11 +1,12 @@
 package com.resortmanagement.system.hr.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.resortmanagement.system.common.repository.SoftDeleteRepository;
+import com.resortmanagement.system.hr.entity.Payroll;
 import org.springframework.stereotype.Repository;
 
-import com.resortmanagement.system.hr.entity.Payroll;
+import java.util.UUID;
 
 @Repository
-public interface PayrollRepository extends JpaRepository<Payroll, Long> {
-    // TODO: add custom queries if needed
+public interface PayrollRepository extends SoftDeleteRepository<Payroll, UUID> {
+    java.util.List<Payroll> findByEmployeeId(UUID employeeId);
 }

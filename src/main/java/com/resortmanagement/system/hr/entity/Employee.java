@@ -1,21 +1,72 @@
-/*
-TODO: Employee.java
-Purpose:
- - HR employee entity that also acts as system users (or link to authentication provider).
-Fields:
- - id: UUID
- - firstName, lastName, email, phone
- - roleIds: relationship to Role (ManyToMany via EmployeeRole) or use EmployeeRole entity
- - credentialsHash: String (password hash) - or use external IdP (preferred)
- - hireDate LocalDate
- - status enum (ACTIVE/INACTIVE)
- - extends Auditable (critical)
-Notes:
- - If employee is to be used for authentication, do not store plain text passwords; use password encoder and security best practices.
-File: hr/entity/Employee.java
-*/
 package com.resortmanagement.system.hr.entity;
 
-public class Employee {
-    // TODO: fields, constructors, getters, setters
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.UUID;
+
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToMany;
+import java.util.List;
+import java.util.ArrayList;
+
+@Entity
+@Table(name = "employees")
+@Data
+@EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Employee extends AuditableSoftDeletable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<EmployeeRole> roles = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column
+    private String phone;
+
+    @Column(nullable = false)
+    private String credentialsHash;
+
+    @Column(nullable = false)
+    private LocalDate hireDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EmployeeStatus status;
+
+    public enum EmployeeStatus {
+        ACTIVE,
+        INACTIVE,
+        TERMINATED,
+        ON_LEAVE
+    }
 }

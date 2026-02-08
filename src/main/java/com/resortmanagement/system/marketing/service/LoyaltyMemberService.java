@@ -7,10 +7,12 @@ File: marketing/repository/<File>.java, marketing/service/<File>.java
 */
 package com.resortmanagement.system.marketing.service;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.resortmanagement.system.marketing.entity.LoyaltyMember;
 import com.resortmanagement.system.marketing.repository.LoyaltyMemberRepository;
@@ -24,23 +26,61 @@ public class LoyaltyMemberService {
         this.repository = repository;
     }
 
-    public List<LoyaltyMember> findAll() {
-        // TODO: add pagination and filtering
-        return repository.findAll();
+    public org.springframework.data.domain.Page<LoyaltyMember> findAll(
+            org.springframework.data.domain.Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public Optional<LoyaltyMember> findById(Long id) {
-        // TODO: add caching and error handling
+    public Optional<LoyaltyMember> findById(UUID id) {
         return repository.findById(id);
     }
 
     public LoyaltyMember save(LoyaltyMember entity) {
-        // TODO: add validation and business rules
+        if (entity.getGuestId() == null) {
+            throw new IllegalArgumentException("Guest ID is required");
+        }
+        if (entity.getPointsBalance() == null) {
+            entity.setPointsBalance(BigDecimal.ZERO);
+        }
+        if (entity.getTier() == null) {
+            entity.setTier("MEMBER"); // Default tier
+        }
         return repository.save(entity);
     }
 
-    public void deleteById(Long id) {
-        // TODO: add soft delete if required
+    public LoyaltyMember update(UUID id, LoyaltyMember entity) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setGuestId(entity.getGuestId());
+                    existing.setPointsBalance(entity.getPointsBalance());
+                    existing.setTier(entity.getTier());
+                    existing.setEnrolledAt(entity.getEnrolledAt());
+                    return repository.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("LoyaltyMember not found with id " + id));
+    }
+
+    public void deleteById(UUID id) {
         repository.deleteById(id);
+    }
+
+    @Transactional
+    public void awardPoints(UUID memberId, BigDecimal amount) {
+        findById(memberId).ifPresent(member -> {
+            member.setPointsBalance(member.getPointsBalance().add(amount));
+            checkTierUpgrade(member);
+            save(member);
+        });
+    }
+
+    private void checkTierUpgrade(LoyaltyMember member) {
+        BigDecimal balance = member.getPointsBalance();
+        if (balance.compareTo(new BigDecimal("10000")) >= 0) {
+            member.setTier("PLATINUM");
+        } else if (balance.compareTo(new BigDecimal("5000")) >= 0) {
+            member.setTier("GOLD");
+        } else if (balance.compareTo(new BigDecimal("1000")) >= 0) {
+            member.setTier("SILVER");
+        }
     }
 }

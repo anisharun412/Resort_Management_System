@@ -1,7 +1,7 @@
 package com.resortmanagement.system.marketing.service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -17,23 +17,45 @@ public class PackageItemService {
         this.repository = repository;
     }
 
-    public List<PackageItem> findAll() {
-        // TODO: add pagination and filtering
-        return repository.findAll();
+    public org.springframework.data.domain.Page<PackageItem> findAll(
+            org.springframework.data.domain.Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
-    public Optional<PackageItem> findById(Long id) {
-        // TODO: add caching and error handling
+    public Optional<PackageItem> findById(UUID id) {
         return repository.findById(id);
     }
 
     public PackageItem save(PackageItem entity) {
-        // TODO: add validation and business rules
+        if (entity.getPkg() == null) {
+            throw new IllegalArgumentException("Package is required");
+        }
+        if (entity.getComponentType() == null || entity.getComponentId() == null) {
+            throw new IllegalArgumentException("Component type and ID are required");
+        }
+        if (entity.getQty() == null || entity.getQty() <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+        if (entity.getPrice() == null || entity.getPrice().compareTo(java.math.BigDecimal.ZERO) < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
         return repository.save(entity);
     }
 
-    public void deleteById(Long id) {
-        // TODO: add soft delete if required
+    public PackageItem update(UUID id, PackageItem entity) {
+        return repository.findById(id)
+                .map(existing -> {
+                    existing.setPkg(entity.getPkg());
+                    existing.setComponentType(entity.getComponentType());
+                    existing.setComponentId(entity.getComponentId());
+                    existing.setQty(entity.getQty());
+                    existing.setPrice(entity.getPrice());
+                    return repository.save(existing);
+                })
+                .orElseThrow(() -> new RuntimeException("PackageItem not found with id " + id));
+    }
+
+    public void deleteById(UUID id) {
         repository.deleteById(id);
     }
 }
