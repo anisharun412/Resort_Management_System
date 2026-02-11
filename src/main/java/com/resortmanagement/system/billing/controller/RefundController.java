@@ -1,69 +1,75 @@
-/**
-TODO: RefundController.java
-Purpose:
- - Expose endpoints to create refunds against payments/invoices.
-Endpoints:
- - POST /api/v1/payments/{paymentId}/refund -> create refund request (amount, reason)
- - GET /api/v1/refunds/{refundId}
-Responsibilities:
- - Validate refund business rules (amount <= refundable).
- - Use RefundService (transaction) to create refund record, call PSP refund API, update Payment/Invoice statuses.
- - Use proper RBAC (finance/admin only).
-File: billing/controller/RefundController.java
- */
 package com.resortmanagement.system.billing.controller;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resortmanagement.system.billing.dto.RefundRequest;
+import com.resortmanagement.system.billing.dto.RefundResponse;
 import com.resortmanagement.system.billing.entity.Refund;
+import com.resortmanagement.system.billing.mapper.BillingMapper;
 import com.resortmanagement.system.billing.service.RefundService;
+import java.util.stream.Collectors;
 
+import jakarta.validation.Valid;
+
+/**
+ * RefundController
+ * Purpose:
+ *  - REST controller for Refund operations
+ * Endpoints:
+ *  - GET /api/billing/refunds - Get all refunds
+ *  - GET /api/billing/refunds/{id} - Get refund by ID
+ *  - POST /api/billing/refunds - Create new refund request
+ *  - POST /api/billing/refunds/{id}/process - Process refund (REQUESTED/PROCESSING -> SUCCESS/FAILED)
+ */
 @RestController
-@RequestMapping("/api/billing/refunds")
+@RequestMapping(" /api/billing/refunds")
 public class RefundController {
 
-    private final RefundService refundService;
+    private final RefundService service;
 
-    public RefundController(RefundService refundService) {
-        this.refundService = refundService;
+    public RefundController(RefundService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<Refund>> getAll() {
-        // TODO: add pagination and filtering params
-        return ResponseEntity.ok(refundService.findAll());
+    public ResponseEntity<List<RefundResponse>> getAll() {
+        return ResponseEntity.ok(service.findAll().stream()
+                .map(BillingMapper::toResponse)
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Refund> getById(@PathVariable Long id) {
-        return refundService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<RefundResponse> getById(@PathVariable UUID id) {
+        return service.findById(id)
+                .map(BillingMapper::toResponse)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Refund> create(@RequestBody Refund refund) {
-        // TODO: add validation
-        return ResponseEntity.ok(refundService.save(refund));
+    public ResponseEntity<RefundResponse> create(@Valid @RequestBody RefundRequest request) {
+        Refund refund = BillingMapper.toEntity(request);
+        Refund created = service.save(refund);
+        return ResponseEntity.status(HttpStatus.CREATED).body(BillingMapper.toResponse(created));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Refund> update(@PathVariable Long id, @RequestBody Refund refund) {
-        // TODO: implement update logic
-        return ResponseEntity.ok(refundService.save(refund));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        refundService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/{id}/process")
+    public ResponseEntity<RefundResponse> processRefund(
+            @PathVariable UUID id,
+            @RequestParam boolean success,
+            @RequestParam(required = false) String providerRefundRef) {
+        Refund processed = service.processRefund(id, success, providerRefundRef);
+        return ResponseEntity.ok(BillingMapper.toResponse(processed));
     }
 }

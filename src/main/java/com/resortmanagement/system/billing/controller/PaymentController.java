@@ -1,72 +1,75 @@
-/**
-TODO: PaymentController.java
-Purpose:
- - Accept payment requests and forward to PaymentService; handle idempotency and webhooks.
-Endpoints:
- - POST /api/v1/invoices/{invoiceId}/pay -> client triggers payment
- - POST /api/v1/payments/webhook -> PSP webhook endpoint (idempotent)
- - GET /api/v1/payments/{paymentId}
-Responsibilities:
- - Use PaymentRequest DTO containing paymentMethod, token, amount, idempotencyKey.
- - Validate amounts match invoice outstanding.
- - Use PaymentService (transactional) for recording Payment and updating Invoice status.
- - Secure webhook with signature check and idempotency key handling.
-
-File: billing/controller/PaymentController.java
- */
 package com.resortmanagement.system.billing.controller;
 
 import java.util.List;
+import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.resortmanagement.system.billing.dto.PaymentRequest;
+import com.resortmanagement.system.billing.dto.PaymentResponse;
 import com.resortmanagement.system.billing.entity.Payment;
+import com.resortmanagement.system.billing.mapper.BillingMapper;
 import com.resortmanagement.system.billing.service.PaymentService;
+import java.util.stream.Collectors;
 
+import jakarta.validation.Valid;
+
+/**
+ * PaymentController
+ * Purpose:
+ *  - REST controller for Payment operations
+ * Endpoints:
+ *  - GET /api/billing/payments - Get all payments
+ *  - GET /api/billing/payments/{id} - Get payment by ID
+ *  - POST /api/billing/payments - Create new payment
+ *  - POST /api/billing/payments/{id}/process - Process payment (PENDING -> SUCCESS/FAILED)
+ */
 @RestController
 @RequestMapping("/api/billing/payments")
 public class PaymentController {
 
-    private final PaymentService paymentService;
+    private final PaymentService service;
 
-    public PaymentController(PaymentService paymentService) {
-        this.paymentService = paymentService;
+    public PaymentController(PaymentService service) {
+        this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<Payment>> getAll() {
-        // TODO: add pagination and filtering params
-        return ResponseEntity.ok(paymentService.findAll());
+    public ResponseEntity<List<PaymentResponse>> getAll() {
+        return ResponseEntity.ok(service.findAll().stream()
+                .map(BillingMapper::toResponse)
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Payment> getById(@PathVariable Long id) {
-        return paymentService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<PaymentResponse> getById(@PathVariable UUID id) {
+        return service.findById(id)
+                .map(BillingMapper::toResponse)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Payment> create(@RequestBody Payment payment) {
-        // TODO: add validation
-        return ResponseEntity.ok(paymentService.save(payment));
+    public ResponseEntity<PaymentResponse> create(@Valid @RequestBody PaymentRequest request) {
+        Payment payment = BillingMapper.toEntity(request);
+        Payment created = service.save(payment);
+        return ResponseEntity.status(HttpStatus.CREATED).body(BillingMapper.toResponse(created));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Payment> update(@PathVariable Long id, @RequestBody Payment payment) {
-        // TODO: implement update logic
-        return ResponseEntity.ok(paymentService.save(payment));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        paymentService.deleteById(id);
-        return ResponseEntity.noContent().build();
+    @PostMapping("/{id}/process")
+    public ResponseEntity<PaymentResponse> processPayment(
+            @PathVariable UUID id,
+            @RequestParam boolean success,
+            @RequestParam(required = false) String providerResponse) {
+        Payment processed = service.processPayment(id, success, providerResponse);
+        return ResponseEntity.ok(BillingMapper.toResponse(processed));
     }
 }
