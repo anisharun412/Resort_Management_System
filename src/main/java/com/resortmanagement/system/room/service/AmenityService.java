@@ -1,5 +1,6 @@
 package com.resortmanagement.system.room.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,18 +30,18 @@ public class AmenityService {
     }
 
     public List<AmenityResponse> getAll() {
-        return mapper.toResponseList(repo.findAll());
+        return mapper.toResponseList(repo.findByDeletedFalse());
     }
 
     public AmenityResponse getById(UUID id) {
         return mapper.toResponse(
-                repo.findById(id).orElseThrow(() -> new RuntimeException("Amenity not found"))
+                repo.findByIdAndDeletedFalse(id).orElseThrow(() -> new RuntimeException("Amenity not found"))
         );
     }
 
     public AmenityResponse update(UUID id, AmenityUpdateRequest request) {
 
-        Amenity entity = repo.findById(id)
+        Amenity entity = repo.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new RuntimeException("Amenity not found"));
 
         mapper.update(entity, request);
@@ -49,6 +50,6 @@ public class AmenityService {
     }
 
     public void delete(UUID id) {
-        repo.deleteById(id);
+        repo.softDeleteById(id, Instant.now());
     }
 }

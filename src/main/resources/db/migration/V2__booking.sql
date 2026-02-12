@@ -8,8 +8,16 @@ CREATE TABLE reservation (
     reservation_id CHAR(36) PRIMARY KEY,
     reservation_number VARCHAR(50) NOT NULL UNIQUE,
 
+    guest_id CHAR(36) NOT NULL,
+    booking_source_id CHAR(36),
+    package_id CHAR(36),
+    rate_plan_id CHAR(36),
+    
     check_in_date DATE NOT NULL,
     check_out_date DATE NOT NULL,
+    
+    num_guests INT DEFAULT 1,
+    is_package_booking BOOLEAN DEFAULT FALSE,
 
     status ENUM(
         'CREATED',
@@ -31,7 +39,7 @@ CREATE TABLE reservation (
 
     CONSTRAINT chk_reservation_dates
         CHECK (check_in_date < check_out_date)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_reservation_dates
 ON reservation(check_in_date, check_out_date);
@@ -47,21 +55,29 @@ ON reservation(status);
 CREATE TABLE booking_guest (
     booking_guest_id CHAR(36) PRIMARY KEY,
     reservation_id CHAR(36) NOT NULL,
+    guest_id CHAR(36) NOT NULL,
 
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100),
-    email VARCHAR(150),
-    phone VARCHAR(20),
+    guest_type VARCHAR(50),
+    age INT,
+    special_needs TEXT,
 
-    is_primary_guest BOOLEAN DEFAULT FALSE,
+    is_primary BOOLEAN DEFAULT FALSE,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
+    created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL,
 
     CONSTRAINT fk_booking_guest_reservation
         FOREIGN KEY (reservation_id)
         REFERENCES reservation(reservation_id)
         ON DELETE CASCADE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_booking_guest_reservation
 ON booking_guest(reservation_id);
@@ -75,6 +91,7 @@ CREATE TABLE reservation_add_on (
     reservation_add_on_id CHAR(36) PRIMARY KEY,
     reservation_id CHAR(36) NOT NULL,
 
+    add_on_code VARCHAR(50) NOT NULL,
     add_on_name VARCHAR(150) NOT NULL,
     quantity INT NOT NULL DEFAULT 1,
     unit_price DECIMAL(12,2) NOT NULL,
@@ -86,7 +103,7 @@ CREATE TABLE reservation_add_on (
         FOREIGN KEY (reservation_id)
         REFERENCES reservation(reservation_id)
         ON DELETE CASCADE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_add_on_reservation
 ON reservation_add_on(reservation_id);
@@ -100,17 +117,27 @@ CREATE TABLE reservation_daily_rate (
     reservation_daily_rate_id CHAR(36) PRIMARY KEY,
     reservation_id CHAR(36) NOT NULL,
 
-    stay_date DATE NOT NULL,
-    base_price DECIMAL(12,2) NOT NULL,
-    final_price DECIMAL(12,2) NOT NULL,
+    date DATE NOT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    is_package_rate BOOLEAN DEFAULT FALSE,
+    amount DECIMAL(12,2) NOT NULL,
+    rate_plan_id CHAR(36) NULL,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- Auditing fields
+    created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL,
 
     CONSTRAINT fk_daily_rate_reservation
         FOREIGN KEY (reservation_id)
         REFERENCES reservation(reservation_id)
         ON DELETE CASCADE
-);
+    CONSTRAINT fk_daily_rate_rate_plan
+        FOREIGN KEY (rate_plan_id)
+        REFERENCES rate_plan(rate_plan_id)
+        ON DELETE SET NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_daily_rate_reservation
 ON reservation_daily_rate(reservation_id);
@@ -128,10 +155,26 @@ CREATE TABLE reservation_room_assignment (
     reservation_id CHAR(36) NOT NULL,
 
     room_id CHAR(36) NOT NULL,
-    assigned_from DATE NOT NULL,
-    assigned_to DATE NOT NULL,
+    check_in_date DATE NOT NULL,
+    check_out_date DATE NOT NULL,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM(
+        'UNASSIGNED',
+        'ASSIGNED',
+        'CHECKED_IN',
+        'CHECKED_OUT',
+        'CANCELLED'
+    ) NOT NULL DEFAULT 'UNASSIGNED',
+
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
+    created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL,
 
     CONSTRAINT fk_room_assignment_reservation
         FOREIGN KEY (reservation_id)
@@ -139,8 +182,8 @@ CREATE TABLE reservation_room_assignment (
         ON DELETE CASCADE,
 
     CONSTRAINT chk_room_assignment_dates
-        CHECK (assigned_from <= assigned_to)
-);
+        CHECK (check_in_date <= check_out_date)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_room_assignment_reservation
 ON reservation_room_assignment(reservation_id);
@@ -154,22 +197,30 @@ ON reservation_room_assignment(room_id);
 -- ============================================================
 
 CREATE TABLE reservation_service_booking (
-    reservation_service_booking_id CHAR(36) PRIMARY KEY,
+    reservation_service_id CHAR(36) PRIMARY KEY,
     reservation_id CHAR(36) NOT NULL,
 
-    service_name VARCHAR(150) NOT NULL,
-    service_date DATE NOT NULL,
-    service_time TIME,
+    folio_id CHAR(36) NULL,
+    service_item_id CHAR(36) NOT NULL,
+    service_date DATETIME NOT NULL,
     quantity INT DEFAULT 1,
     price DECIMAL(12,2) NOT NULL,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
+    created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL,
 
     CONSTRAINT fk_service_booking_reservation
         FOREIGN KEY (reservation_id)
         REFERENCES reservation(reservation_id)
         ON DELETE CASCADE
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE INDEX idx_service_booking_reservation
 ON reservation_service_booking(reservation_id);

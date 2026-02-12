@@ -30,6 +30,9 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.Column;
@@ -52,7 +55,8 @@ public class AccountLedger extends Auditable {
 
     @Id
     @UuidGenerator
-    @Column(name = "ledger_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "ledger_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank
@@ -80,8 +84,10 @@ public class AccountLedger extends Auditable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AccountLedger)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof AccountLedger))
+            return false;
         AccountLedger ledger = (AccountLedger) o;
         return id != null && id.equals(ledger.id);
     }

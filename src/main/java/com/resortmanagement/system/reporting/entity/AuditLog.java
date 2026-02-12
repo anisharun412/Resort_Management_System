@@ -42,7 +42,7 @@ public class AuditLog {
 
     @Id
     @UuidGenerator
-    @Column(name = "audit_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @Column(name = "audit_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank
@@ -50,7 +50,7 @@ public class AuditLog {
     private String targetEntity;
 
     @NotNull
-    @Column(name = "target_id", columnDefinition = "VARCHAR(36)", nullable = false)
+    @Column(name = "target_id", columnDefinition = "CHAR(36)", nullable = false)
     private UUID targetId;
 
     @NotNull

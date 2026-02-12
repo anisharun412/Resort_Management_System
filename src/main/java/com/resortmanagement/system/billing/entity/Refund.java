@@ -26,6 +26,9 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.Column;
@@ -49,11 +52,13 @@ public class Refund extends Auditable {
 
     @Id
     @UuidGenerator
-    @Column(name = "refund_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "refund_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotNull
-    @Column(name = "payment_id", columnDefinition = "VARCHAR(36)", nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "payment_id", columnDefinition = "CHAR(36)", nullable = false)
     private UUID paymentId;
 
     @NotNull
@@ -77,16 +82,19 @@ public class Refund extends Auditable {
     @Column(name = "provider_refund_ref", length = 100)
     private String providerRefundRef;
 
-    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment -> Refund
-    
+    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment ->
+    // Refund
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "payment_id", insertable = false, updatable = false)
     private Payment payment;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Refund)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Refund))
+            return false;
         Refund refund = (Refund) o;
         return id != null && id.equals(refund.id);
     }

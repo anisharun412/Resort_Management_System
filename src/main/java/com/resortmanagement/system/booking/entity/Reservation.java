@@ -51,31 +51,36 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "reservation")
 public class Reservation extends AuditableSoftDeletable {
     @Id
     @UuidGenerator
     @Column(name = "reservation_id", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id", nullable = false)
     private Guest guestId;
 
     private UUID bookingSourceId;
     private Boolean isPackageBooking;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="package_id")
-    private Package packageId;
+    @Column(name = "package_id")
+    private UUID packageId;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "room_plan_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "package_id", insertable = false, updatable = false)
+    private Package packageEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rate_plan_id")
     private RatePlan ratePlan;
 
     private LocalDate startDate;
@@ -84,19 +89,19 @@ public class Reservation extends AuditableSoftDeletable {
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
-    
-    @OneToMany(mappedBy="reservationId", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "reservationId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReservationDailyRate> dailyRates = new ArrayList<>();
-    
-    @OneToMany(mappedBy="reservationId", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "reservationId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReservationServiceBooking> serviceBookings = new ArrayList<>();
-    
-    @OneToMany(mappedBy="reservationId", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "reservationId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReservationAddOn> addOns = new ArrayList<>();
-    
-    @OneToMany(mappedBy="reservationId", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+
+    @OneToMany(mappedBy = "reservationId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<BookingGuest> bookingGuests = new HashSet<>();
 
-    @OneToMany(mappedBy="reservationId", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "reservationId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ReservationRoomAssignment> assignedRooms = new ArrayList<>();
 }

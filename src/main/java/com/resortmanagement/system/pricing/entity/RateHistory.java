@@ -24,17 +24,19 @@ import org.hibernate.annotations.UuidGenerator;
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "rate_history")
 public class RateHistory extends Auditable {
     @Id
     @UuidGenerator
@@ -47,10 +49,10 @@ public class RateHistory extends Auditable {
 
     private Double price;
     
-    public Double getPrice() {
-        return this.price;
-    }
+    @Column(name="season_name")
     private String seasonName;
+    @Column(name="start_date")
     private LocalDate startDate;
+    @Column(name="end_date")
     private LocalDate endDate;
 }

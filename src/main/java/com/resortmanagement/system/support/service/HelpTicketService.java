@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.resortmanagement.system.common.guest.Guest;
+import com.resortmanagement.system.common.guest.GuestRepository;
 import com.resortmanagement.system.support.dto.request.HelpTicketCreateRequest;
 import com.resortmanagement.system.support.dto.request.HelpTicketUpdateRequest;
 import com.resortmanagement.system.support.dto.response.HelpTicketResponse;
@@ -20,16 +22,22 @@ public class HelpTicketService {
 
     private final HelpTicketMapper mapper;
 
+    private final GuestRepository guestRepository;
+
     public HelpTicketService(HelpTicketRepository repository,
-                         HelpTicketMapper mapper) {
+                         HelpTicketMapper mapper,
+                         GuestRepository guestRepository
+    ) {
         this.repository = repository;
         this.mapper = mapper;
+        this.guestRepository = guestRepository;
     }
 
-    public HelpTicketService(HelpTicketMapper mapper, HelpTicketRepository repository) {
-        this.mapper = mapper;
-        this.repository = repository;
-    }
+    // public HelpTicketService(HelpTicketMapper mapper, HelpTicketRepository repository) {
+    //     this.mapper = mapper;
+    //     this.repository = repository;
+    //     this.guestRepository = null;
+    // }
 
     public HelpTicketResponse create(HelpTicketCreateRequest request) {
 
@@ -64,8 +72,11 @@ public class HelpTicketService {
         if (request.getStatus() != null)
             entity.setStatus(request.getStatus());
 
-        if (request.getAssignedTo() != null)
-            entity.setAssignedTo(request.getAssignedTo());
+        if (request.getAssignedTo() != null) {
+            Guest guest = guestRepository.findByIdAndDeletedFalse(request.getAssignedTo())
+                    .orElseThrow(() -> new RuntimeException("Guest not found"));
+            entity.setAssignedTo(guest);
+        }
 
         return mapper.toResponse(repository.save(entity));
     }

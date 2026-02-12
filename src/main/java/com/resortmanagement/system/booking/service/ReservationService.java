@@ -59,7 +59,7 @@ public class ReservationService {
                 .orElseThrow(() -> new ApplicationException("Rate Plan not found"));
 
         // 3. Availability Check
-        UUID roomTypeId = ratePlan.getRoomTypeId();
+        UUID roomTypeId = ratePlan.getRoomTypeId().getId();
         if (roomTypeId == null) {
             if (request.getRoomTypeId() != null) {
                 roomTypeId = request.getRoomTypeId();

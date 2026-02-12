@@ -35,13 +35,16 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "reservation_service_booking")
 public class ReservationServiceBooking extends AuditableSoftDeletable {
     @Id
     @UuidGenerator
@@ -49,17 +52,18 @@ public class ReservationServiceBooking extends AuditableSoftDeletable {
     private UUID id;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @Column(name = "reservation_id", nullable = false)
+    @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservationId;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @Column(name = "folio_id", nullable = false)
+    @JoinColumn(name = "folio_id", nullable = false)
     private Folio folioId;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @Column(name = "service_item_id", nullable = false)
+    @JoinColumn(name = "service_item_id", nullable = false)
     private ServiceItem serviceItemId;
 
+    @Column(name = "service_date", nullable = false)
     private LocalDateTime scheduledAt;
     private Integer quantity;
     private Double price; // snapshot of service price at booking time

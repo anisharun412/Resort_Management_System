@@ -12,9 +12,9 @@ CREATE TABLE feedback_reviews (
     updated_at TIMESTAMP,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
-    deleted BOOLEAN DEFAULT FALSE,
+    is_deleted BOOLEAN DEFAULT FALSE,
     deleted_at TIMESTAMP
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- COMMUNICATIONS
 CREATE TABLE communications (
@@ -33,15 +33,15 @@ CREATE TABLE communications (
     updated_at TIMESTAMP,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
-    deleted BOOLEAN DEFAULT FALSE,
+    is_deleted BOOLEAN DEFAULT FALSE,
     deleted_at TIMESTAMP
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- HELP TICKETS
 CREATE TABLE help_tickets (
     id CHAR(36) PRIMARY KEY,
     guest_id CHAR(36) NOT NULL,
-    ticket_id VARCHAR(100),
+    ticket_number VARCHAR(100),
     category VARCHAR(100),
     description TEXT,
     priority VARCHAR(30),
@@ -54,6 +54,6 @@ CREATE TABLE help_tickets (
     updated_at TIMESTAMP,
     created_by VARCHAR(100),
     updated_by VARCHAR(100),
-    deleted BOOLEAN DEFAULT FALSE,
+    is_deleted BOOLEAN DEFAULT FALSE,
     deleted_at TIMESTAMP
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

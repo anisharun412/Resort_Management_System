@@ -37,7 +37,7 @@ public class ReportMeta extends Auditable {
 
     @Id
     @UuidGenerator
-    @Column(name = "report_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @Column(name = "report_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank
@@ -50,7 +50,7 @@ public class ReportMeta extends Auditable {
     @Column(name = "last_run_at")
     private Instant lastRunAt;
 
-    @Column(name = "owner_id", columnDefinition = "VARCHAR(36)")
+    @Column(name = "owner_id", columnDefinition = "CHAR(36)")
     private UUID ownerId;
 
     @Override

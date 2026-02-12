@@ -1,5 +1,5 @@
 package com.resortmanagement.system.common.enums;
 
 public enum RoomAssignmentStatus {
-    UNASSIGNED, ASSIGNED, CHECKED_IN, CHECKED_OUT
+    UNASSIGNED, ASSIGNED, CHECKED_IN, CHECKED_OUT, CANCELLED
 }

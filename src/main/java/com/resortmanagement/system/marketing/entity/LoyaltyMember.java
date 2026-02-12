@@ -1,5 +1,11 @@
 package com.resortmanagement.system.marketing.entity;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
+
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -8,18 +14,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.FetchType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.UUID;
-
-import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
+import lombok.Setter;
 
 @Entity
 @Table(name = "loyalty_members")

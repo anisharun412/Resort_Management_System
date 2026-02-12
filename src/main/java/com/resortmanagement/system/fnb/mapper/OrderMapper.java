@@ -19,8 +19,6 @@ public class OrderMapper {
             return null;
         }
         Order entity = new Order();
-        entity.setGuestId(request.getGuestId());
-        entity.setReservationId(request.getReservationId());
         entity.setTableId(request.getTableId());
         // Items are typically handled by service logic during creation 
         // as they require fetching MenuItems
@@ -33,17 +31,14 @@ public class OrderMapper {
         }
         OrderResponse response = new OrderResponse();
         response.setId(entity.getId());
-        response.setGuestId(entity.getGuestId());
-        response.setReservationId(entity.getReservationId());
         response.setTableId(entity.getTableId());
         response.setTotalAmount(entity.getTotalAmount());
-        
+        response.setAssignedFolioId(entity.getAssignedFolioId() != null ? entity.getAssignedFolioId().getId() : null);
         if (entity.getStatus() != null) {
             response.setStatus(entity.getStatus().name());
         }
         
         response.setPlacedAt(entity.getPlacedAt());
-        response.setAssignedFolioId(entity.getAssignedFolioId());
 
         if (entity.getOrderItems() != null) {
             response.setItems(entity.getOrderItems().stream()
@@ -66,7 +61,7 @@ public class OrderMapper {
             res.setMenuItemId(item.getMenuItem().getId());
             res.setMenuItemName(item.getMenuItem().getName());
         }
-        res.setQty(item.getQty());
+        res.setQty(item.getQuantity());
         res.setUnitPrice(item.getUnitPrice());
         res.setTotalPrice(item.getTotalPrice());
         return res;

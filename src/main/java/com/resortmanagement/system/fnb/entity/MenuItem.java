@@ -1,21 +1,38 @@
 package com.resortmanagement.system.fnb.entity;
 
-import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
-import jakarta.persistence.*;
-// import lombok.Getter;
-// import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "menu_items")
 public class MenuItem extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "menu_item_id")
     private UUID id;
 
     /**
@@ -32,79 +49,24 @@ public class MenuItem extends AuditableSoftDeletable {
     @Column(length = 500)
     private String description;
 
+    @Column(length = 100)
+    private String sku;
+
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Column(nullable = false)
+    @Column(name = "prep_time_mins")
+    private Integer prepTimeMins;
+
+    @Column(name = "is_available", nullable = false)
     private boolean isAvailable = true;
 
     /**
      * MenuItem → MenuItemIngredient
      * Inventory linkage happens via this mapping
      */
-    @OneToMany(
-            mappedBy = "menuItem",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "menuItem", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<MenuItemIngredient> ingredients = new HashSet<>();
 
-    // Manual Getters and Setters
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-
-    public Set<MenuItemIngredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(Set<MenuItemIngredient> ingredients) {
-        this.ingredients = ingredients;
-    }
+    
 }

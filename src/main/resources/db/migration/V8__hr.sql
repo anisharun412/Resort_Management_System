@@ -1,8 +1,14 @@
 -- V8__hr.sql
 -- Create HR tables
 
+DROP TABLE IF EXISTS shift_schedules;
+DROP TABLE IF EXISTS payrolls;
+DROP TABLE IF EXISTS employee_roles;
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS roles;
+
 CREATE TABLE roles (
-    id BINARY(16) NOT NULL,
+    id CHAR(36) NOT NULL,
     created_at DATETIME(6) NOT NULL,
     created_by VARCHAR(100),
     updated_at DATETIME(6) NOT NULL,
@@ -11,10 +17,10 @@ CREATE TABLE roles (
     name VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT uk_roles_name UNIQUE (name)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE employees (
-    id BINARY(16) NOT NULL,
+    id CHAR(36) NOT NULL,
     created_at DATETIME(6) NOT NULL,
     created_by VARCHAR(100),
     updated_at DATETIME(6) NOT NULL,
@@ -30,25 +36,25 @@ CREATE TABLE employees (
     status VARCHAR(255) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT uk_employees_email UNIQUE (email)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE employee_roles (
-    id BINARY(16) NOT NULL,
+    id CHAR(36) NOT NULL,
     created_at DATETIME(6) NOT NULL,
     created_by VARCHAR(100),
     updated_at DATETIME(6) NOT NULL,
     updated_by VARCHAR(100),
     assigned_date DATE NOT NULL,
     end_date DATE,
-    employee_id BINARY(16) NOT NULL,
-    role_id BINARY(16) NOT NULL,
+    employee_id CHAR(36) NOT NULL,
+    role_id CHAR(36) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_employee_roles_employee FOREIGN KEY (employee_id) REFERENCES employees (id),
     CONSTRAINT fk_employee_roles_role FOREIGN KEY (role_id) REFERENCES roles (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE payrolls (
-    id BINARY(16) NOT NULL,
+    id CHAR(36) NOT NULL,
     created_at DATETIME(6) NOT NULL,
     created_by VARCHAR(100),
     updated_at DATETIME(6) NOT NULL,
@@ -61,13 +67,13 @@ CREATE TABLE payrolls (
     paid_at DATETIME(6),
     period_end DATE NOT NULL,
     period_start DATE NOT NULL,
-    employee_id BINARY(16) NOT NULL,
+    employee_id CHAR(36) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_payrolls_employee FOREIGN KEY (employee_id) REFERENCES employees (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE shift_schedules (
-    id BINARY(16) NOT NULL,
+    id CHAR(36) NOT NULL,
     created_at DATETIME(6) NOT NULL,
     created_by VARCHAR(100),
     updated_at DATETIME(6) NOT NULL,
@@ -76,7 +82,7 @@ CREATE TABLE shift_schedules (
     location VARCHAR(255) NOT NULL,
     position VARCHAR(255) NOT NULL,
     start_time DATETIME(6) NOT NULL,
-    employee_id BINARY(16) NOT NULL,
+    employee_id CHAR(36) NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_shift_schedules_employee FOREIGN KEY (employee_id) REFERENCES employees (id)
-) ENGINE=InnoDB;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -30,6 +30,9 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.resortmanagement.system.common.audit.Auditable;
 import com.resortmanagement.system.common.enums.PaymentStatus;
 
@@ -56,11 +59,13 @@ public class Payment extends Auditable {
 
     @Id
     @UuidGenerator
-    @Column(name = "payment_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "payment_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
     @NotNull
-    @Column(name = "invoice_id", columnDefinition = "VARCHAR(36)", nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "invoice_id", columnDefinition = "CHAR(36)", nullable = false)
     private UUID invoiceId;
 
     @NotNull
@@ -86,8 +91,9 @@ public class Payment extends Auditable {
     @Column(name = "processed_at")
     private Instant processedAt;
 
-    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment -> Refund
-    
+    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment ->
+    // Refund
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "invoice_id", insertable = false, updatable = false)
     private Invoice invoice;
@@ -97,8 +103,10 @@ public class Payment extends Auditable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Payment)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Payment))
+            return false;
         Payment payment = (Payment) o;
         return id != null && id.equals(payment.id);
     }

@@ -30,16 +30,16 @@ public class InventoryItem extends Auditable {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, name = "unit")
     private String baseUnit;
 
-    @Column(nullable = false, precision = 15, scale = 3)
+    @Column(nullable = false, precision = 15, scale = 3, name = "stock_qty")
     private BigDecimal quantityOnHand;
 
-    @Column(nullable = false, precision = 15, scale = 3)
+    @Column(nullable = false, precision = 15, scale = 3, name = "reorder_level")
     private BigDecimal reorderPoint;
 
-    @Column(nullable = false, precision = 15, scale = 2)
+    @Column(nullable = false, precision = 15, scale = 2, name = "unit_cost")
     private BigDecimal unitCost;
 
     @Version

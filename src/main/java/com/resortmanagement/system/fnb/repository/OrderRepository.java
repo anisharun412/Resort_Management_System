@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -19,6 +20,11 @@ public interface OrderRepository extends JpaRepository<Order, UUID> {
     @Query("select o from Order o where o.deletedAt is null")
     List<Order> findAllActive();
 
+        /**
+        * Fetch only active (not soft-deleted) order by ID
+        */
+    @Query("select o from Order o where o.id = :id and o.deletedAt is null")
+    Optional<Order> findByIdAndDeletedFalse(@Param("id") UUID id);
     /**
      * Soft delete order
      */

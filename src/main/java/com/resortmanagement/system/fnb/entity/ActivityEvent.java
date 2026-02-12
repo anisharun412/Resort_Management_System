@@ -1,16 +1,28 @@
 package com.resortmanagement.system.fnb.entity;
 
+import java.math.BigDecimal;
+import java.time.Instant;
+import java.util.UUID;
+
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 import com.resortmanagement.system.common.enums.ActivityEventStatus;
 import com.resortmanagement.system.hr.entity.Employee;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,6 +32,8 @@ public class ActivityEvent extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name="activity_event_id", columnDefinition = "CHAR(36)")
     private UUID id;
 
     @Column(nullable = false)
@@ -28,24 +42,24 @@ public class ActivityEvent extends AuditableSoftDeletable {
     @Column(length = 500)
     private String description;
 
-    @Column(nullable = false)
+    @Column(name = "start_time", nullable = false)
     private Instant startTime;
 
-    @Column(nullable = false)
+    @Column(name = "end_time", nullable = false)
     private Instant endTime;
 
     @Column(nullable = false)
-    private int capacity;
+    private Integer capacity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service_item_id", nullable = false)
+    @JoinColumn(name = "instructor_id", nullable = false)
     private Employee instructorId;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(name = "price", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private ActivityEventStatus status;
 
 }

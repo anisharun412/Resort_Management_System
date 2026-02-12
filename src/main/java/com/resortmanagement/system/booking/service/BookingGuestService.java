@@ -38,7 +38,7 @@ public class BookingGuestService {
     }
 
     public void removeGuest(UUID id) {
-        BookingGuest guest = bookingGuestRepository.findByIdAndDeletedFalse(id)
+        bookingGuestRepository.findByIdAndDeletedFalse(id)
             .orElseThrow(() -> new ApplicationException("Booking guest not found"));
 
         bookingGuestRepository.softDeleteById(id, Instant.now());

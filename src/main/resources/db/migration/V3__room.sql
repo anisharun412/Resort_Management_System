@@ -6,11 +6,20 @@ CREATE TABLE room_types (
     bed_type VARCHAR(50),
     area_sq_ft INT,
     amenities_summary TEXT,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    max_occupancy INT,
+    total_keys INT,
+
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
     created_by VARCHAR(100),
-    updated_by VARCHAR(100)
-);
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ROOMS
 CREATE TABLE rooms (
@@ -21,14 +30,20 @@ CREATE TABLE rooms (
     description TEXT,
     max_occupancy INT,
     room_type_id CHAR(36) NOT NULL,
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
     created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
     updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL,
 
     CONSTRAINT fk_room_type FOREIGN KEY (room_type_id)
         REFERENCES room_types(id)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ROOM AMENITIES (junction)
 CREATE TABLE room_amenities (
@@ -36,7 +51,35 @@ CREATE TABLE room_amenities (
     room_id CHAR(36) NOT NULL,
     amenity_id CHAR(36) NOT NULL,
 
-    CONSTRAINT uq_room_amenity UNIQUE(room_id, amenity_id)
+    -- Auditing fields
+    created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL,
+
+    CONSTRAINT uq_room_amenity UNIQUE(room_id, amenity_id),
+    CONSTRAINT fk_room_amenity_room FOREIGN KEY (room_id)
+        REFERENCES rooms(id) ON DELETE CASCADE,
+    CONSTRAINT fk_room_amenity_amenity FOREIGN KEY (amenity_id)
+        REFERENCES amenities(id) ON DELETE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- AMENITIES
+CREATE TABLE amenities (
+    id CHAR(36) PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    description TEXT NULL,
+    category VARCHAR(100) NULL,
+
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
+    created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
+    updated_by VARCHAR(100),
+    updated_at TIMESTAMP NOT NULL
 );
 
 -- ROOM BLOCKS
@@ -49,13 +92,16 @@ CREATE TABLE room_blocks (
     status VARCHAR(30),
     room_id CHAR(36) NOT NULL,
 
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
     created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
     updated_by VARCHAR(100),
-    deleted BOOLEAN DEFAULT FALSE,
-    deleted_at TIMESTAMP
-);
+    updated_at TIMESTAMP NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- MAINTENANCE REQUESTS
 CREATE TABLE maintenance_requests (
@@ -68,13 +114,17 @@ CREATE TABLE maintenance_requests (
     resolved_at TIMESTAMP,
     reported_by CHAR(36),
 
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
     created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
     updated_by VARCHAR(100),
-    deleted BOOLEAN DEFAULT FALSE,
-    deleted_at TIMESTAMP
-);
+    updated_at TIMESTAMP NOT NULL
+
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- HOUSEKEEPING TASKS
 CREATE TABLE housekeeping_tasks (
@@ -86,10 +136,13 @@ CREATE TABLE housekeeping_tasks (
     status VARCHAR(30),
     notes TEXT,
 
-    created_at TIMESTAMP NOT NULL,
-    updated_at TIMESTAMP,
+    -- Soft delete support
+    is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
+    deleted_at TIMESTAMP NULL,
+
+    -- Auditing fields
     created_by VARCHAR(100),
+    created_at TIMESTAMP NOT NULL,
     updated_by VARCHAR(100),
-    deleted BOOLEAN DEFAULT FALSE,
-    deleted_at TIMESTAMP
-);
+    updated_at TIMESTAMP NOT NULL
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

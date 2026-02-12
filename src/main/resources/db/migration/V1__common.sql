@@ -3,7 +3,7 @@
 -- Owned by lead / architect
 
 CREATE TABLE guest (
-    guest_id VARCHAR(36) PRIMARY KEY,
+    guest_id CHAR(36) PRIMARY KEY,
 
     first_name VARCHAR(100) NOT NULL,
     last_name  VARCHAR(100) NOT NULL,
@@ -24,4 +24,4 @@ CREATE TABLE guest (
     updated_at TIMESTAMP NOT NULL,
 
     CONSTRAINT uk_guest_email UNIQUE (email)
-);
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

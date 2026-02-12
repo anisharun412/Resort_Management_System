@@ -38,7 +38,7 @@ public class ReservationAddOnService {
     }
 
     public void removeAddOn(UUID id) {
-        ReservationAddOn addOn = repository.findByIdAndDeletedFalse(id)
+        repository.findByIdAndDeletedFalse(id)
             .orElseThrow(() -> new ApplicationException("Reservation add-on not found"));
 
         repository.softDeleteById(id, Instant.now());

@@ -2,6 +2,9 @@ package com.resortmanagement.system.room.entity;
 
 import java.util.UUID;
 
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,12 +17,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "amenities")
-public class Amenity {
+public class Amenity extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false)
     private String name;       
     private String description;
     private String category;    

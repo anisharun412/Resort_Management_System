@@ -20,7 +20,9 @@ package com.resortmanagement.system.booking.entity;
 
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.type.SqlTypes;
 
 import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 import com.resortmanagement.system.common.enums.GuestType;
@@ -34,23 +36,26 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
-public class BookingGuest extends AuditableSoftDeletable{
+@Table(name = "booking_guest")
+public class BookingGuest extends AuditableSoftDeletable {
     @Id
+    @JdbcTypeCode(SqlTypes.CHAR)
     @UuidGenerator
     @Column(name = "booking_guest_id", updatable = false, nullable = false)
     private UUID id;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "guest_id", nullable = false)
     private Guest guestId;
 
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservationId;
 
@@ -65,7 +70,10 @@ public class BookingGuest extends AuditableSoftDeletable{
     @Column(name = "age")
     private Integer age;
 
-    /** Any special needs or requests for this guests (e.g., dietary restrictions, accessibility requirements) */
+    /**
+     * Any special needs or requests for this guests (e.g., dietary restrictions,
+     * accessibility requirements)
+     */
     @Column(name = "special_needs", length = 500)
     private String specialNeeds;
 }

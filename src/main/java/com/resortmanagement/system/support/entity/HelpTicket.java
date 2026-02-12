@@ -54,7 +54,7 @@ public class HelpTicket extends AuditableSoftDeletable {
     @JoinColumn(name = "guest_id")
     private Guest guest;
 
-   @Column(name = "ticket_number", unique = true)
+    @Column(name = "ticket_number", unique = true)
     private String ticketNumber;
 
     private String category;
@@ -69,7 +69,7 @@ public class HelpTicket extends AuditableSoftDeletable {
 
     @ManyToOne
     @JoinColumn(name="assigned_to")
-    private UUID assignedTo;
+    private Guest assignedTo;
 
     @ManyToOne
     @JoinColumn(name = "reservation_id")

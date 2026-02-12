@@ -27,6 +27,11 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.resortmanagement.system.booking.entity.BookingGuest;
+import com.resortmanagement.system.booking.entity.Reservation;
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.CascadeType;
@@ -53,17 +58,23 @@ public class Folio extends Auditable {
 
     @Id
     @UuidGenerator
-    @Column(name = "folio_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "folio_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "reservation_id", columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "reservation_id", columnDefinition = "CHAR(36)")
     private UUID reservationId;
+
+    @Column(name = "folio_number", nullable = false, unique = true, length = 64)
+    private String folioNumber;
 
     @NotBlank
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "booking_guest_id", columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "booking_guest_id", columnDefinition = "CHAR(36)")
     private UUID bookingGuestId;
 
     @NotNull
@@ -74,24 +85,28 @@ public class Folio extends Auditable {
     @Column(name = "total_amount", precision = 10, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
-    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment -> Refund
-    
+    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment ->
+    // Refund
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id", insertable = false, updatable = false)
-    private Object reservation; // Reference to Reservation entity (avoiding direct import to prevent circular dependency)
+    private Reservation reservation; // Reference to Reservation entity (avoiding direct import to prevent circular
+    // dependency)
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_guest_id", insertable = false, updatable = false)
-    private Object bookingGuest; // Reference to BookingGuest entity (avoiding direct import to prevent circular dependency)
+    private BookingGuest bookingGuest; // Reference to BookingGuest entity (avoiding direct import to prevent circular
+    // dependency)
 
     @OneToMany(mappedBy = "folio", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Invoice> invoices = new ArrayList<>();
 
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Folio)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Folio))
+            return false;
         Folio folio = (Folio) o;
         return id != null && id.equals(folio.id);
     }

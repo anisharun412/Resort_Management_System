@@ -31,6 +31,10 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.resortmanagement.system.booking.entity.Reservation;
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.CascadeType;
@@ -57,14 +61,20 @@ public class Invoice extends Auditable {
 
     @Id
     @UuidGenerator
-    @Column(name = "invoice_id", columnDefinition = "VARCHAR(36)", updatable = false, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "invoice_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "folio_id", columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "folio_id", columnDefinition = "CHAR(36)")
     private UUID folioId;
 
-    @Column(name = "reservation_id", columnDefinition = "VARCHAR(36)")
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "reservation_id", columnDefinition = "CHAR(36)")
     private UUID reservationId;
+
+    @Column(name = "invoice_number", nullable = false, unique = true, length = 64)
+    private String invoiceNumber;
 
     @NotNull
     @Column(name = "issue_date", nullable = false)
@@ -92,23 +102,27 @@ public class Invoice extends Auditable {
     @Column(name = "version")
     private Long version;
 
-    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment -> Refund
-    
+    // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment ->
+    // Refund
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "folio_id", insertable = false, updatable = false)
     private Folio folio;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id", insertable = false, updatable = false)
-    private Object reservation; // Reference to Reservation entity (avoiding direct import to prevent circular dependency)
+    private Reservation reservation; // Reference to Reservation entity (avoiding direct import to prevent circular
+    // dependency)
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Invoice)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Invoice))
+            return false;
         Invoice invoice = (Invoice) o;
         return id != null && id.equals(invoice.id);
     }

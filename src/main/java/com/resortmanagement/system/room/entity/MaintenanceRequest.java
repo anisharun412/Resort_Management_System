@@ -57,6 +57,10 @@ public class MaintenanceRequest extends AuditableSoftDeletable {
     @Column(name = "room_or_facility_id", nullable = false)
     private UUID roomOrFacilityId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "room_or_facility_id", insertable = false, updatable = false)
+    private Room room;
+
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -76,4 +80,3 @@ public class MaintenanceRequest extends AuditableSoftDeletable {
     @JoinColumn(name = "assigned_staff_id")
     private Employee assignedStaff;
 }
-

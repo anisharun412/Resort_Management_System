@@ -1,14 +1,14 @@
 package com.resortmanagement.system.fnb.service;
 
-import com.resortmanagement.system.fnb.entity.OrderItem;
-import com.resortmanagement.system.fnb.repository.OrderItemRepository;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import com.resortmanagement.system.fnb.entity.OrderItem;
+import com.resortmanagement.system.fnb.repository.OrderItemRepository;
 
 @Service
 public class OrderItemService {
@@ -23,17 +23,14 @@ public class OrderItemService {
      * Fetch all order items
      * (Order lifecycle is controlled by Order, not OrderItem)
      */
-    @SuppressWarnings("rawtypes")
     public List<OrderItem> findAll() {
         return repository.findAll();
     }
 
-    @SuppressWarnings("rawtypes")
     public Optional<OrderItem> findById(UUID id) {
         return repository.findById(id);
     }
 
-    @SuppressWarnings("rawtypes")
     public OrderItem save(OrderItem orderItem) {
         return repository.save(orderItem);
     }

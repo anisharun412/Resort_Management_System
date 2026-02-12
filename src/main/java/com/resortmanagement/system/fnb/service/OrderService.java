@@ -3,7 +3,6 @@ package com.resortmanagement.system.fnb.service;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -11,6 +10,8 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.resortmanagement.system.booking.repository.BookingGuestRepository;
+import com.resortmanagement.system.booking.repository.ReservationRepository;
 import com.resortmanagement.system.fnb.dto.request.OrderRequest;
 import com.resortmanagement.system.fnb.dto.response.OrderResponse;
 import com.resortmanagement.system.fnb.entity.Order;
@@ -27,31 +28,46 @@ public class OrderService {
     private final MenuItemRepository menuItemRepository;
     private final OrderMapper orderMapper;
     private final InventoryTransactionService inventoryTransactionService;
+    private final BookingGuestRepository bookingGuestRepository;
+    private final ReservationRepository reservationRepository;
 
     public OrderService(
             OrderRepository orderRepository,
             MenuItemRepository menuItemRepository,
             OrderMapper orderMapper,
-            InventoryTransactionService inventoryTransactionService) {
+            InventoryTransactionService inventoryTransactionService,
+            BookingGuestRepository bookingGuestRepository,
+            ReservationRepository reservationRepository
+        ) {
         this.orderRepository = orderRepository;
         this.menuItemRepository = menuItemRepository;
         this.orderMapper = orderMapper;
         this.inventoryTransactionService = inventoryTransactionService;
+        this.bookingGuestRepository = bookingGuestRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     public List<OrderResponse> findAll() {
-        return orderRepository.findAll().stream()
+        return orderRepository.findAllActive().stream()
                 .map(orderMapper::toResponse)
                 .collect(Collectors.toList());
     }
 
     public Optional<OrderResponse> findById(UUID id) {
-        return orderRepository.findById(id).map(orderMapper::toResponse);
+        return orderRepository.findByIdAndDeletedFalse(id).map(orderMapper::toResponse);
     }
 
     @Transactional
     public OrderResponse create(OrderRequest request) {
         Order order = orderMapper.toEntity(request);
+        order.setGuestId(
+            request.getGuestId() != null ? 
+            bookingGuestRepository.findByIdAndDeletedFalse(request.getGuestId()
+        ).orElse(null) : null);
+        order.setReservationId(
+            request.getReservationId() != null ? 
+            reservationRepository.findByIdAndDeletedFalse(request.getReservationId()
+        ).orElse(null) : null);
         order.setPlacedAt(Instant.now());
         // order.setStatus(OrderStatus.PENDING); // Assuming status exists or default
         
@@ -83,7 +99,7 @@ public class OrderService {
                 OrderItem orderItem = new OrderItem();
                 orderItem.setOrder(order);
                 orderItem.setMenuItem(menuItem);
-                orderItem.setQty(itemReq.getQty());
+                orderItem.setQuantity(itemReq.getQty());
                 orderItem.setUnitPrice(menuItem.getPrice());
                 orderItem.setTotalPrice(menuItem.getPrice().multiply(BigDecimal.valueOf(itemReq.getQty())));
                 

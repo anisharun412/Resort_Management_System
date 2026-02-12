@@ -35,12 +35,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "reservation_daily_rate")
 public class ReservationDailyRate extends Auditable {
 
     @Id
@@ -53,7 +55,10 @@ public class ReservationDailyRate extends Auditable {
     private Reservation reservationId;
 
     private LocalDate date;
+
+    @Column(name="is_package_rate")
     private Boolean isPackageRate;
+    
     private Double amount;
 
     @ManyToOne(fetch = FetchType.LAZY)

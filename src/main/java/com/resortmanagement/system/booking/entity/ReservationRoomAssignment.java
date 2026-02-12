@@ -17,12 +17,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "reservation_room_assignment")
 public class ReservationRoomAssignment extends AuditableSoftDeletable {
     @Id
     @UuidGenerator
@@ -37,7 +39,9 @@ public class ReservationRoomAssignment extends AuditableSoftDeletable {
     @JoinColumn(name = "room_id", nullable = false)
     private Room roomId;
 
+    @Column(name = "check_in_date", nullable = false)
     private LocalDate checkInDate;
+    @Column(name = "check_out_date", nullable = false)
     private LocalDate checkOutDate;
 
     @Enumerated(EnumType.STRING)

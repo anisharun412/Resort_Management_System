@@ -1,20 +1,35 @@
 package com.resortmanagement.system.fnb.entity;
 
-import com.resortmanagement.system.common.audit.Auditable;
-import com.resortmanagement.system.inventory.entity.InventoryItem;
-import jakarta.persistence.*;
-// import lombok.Getter;
-// import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.resortmanagement.system.common.audit.Auditable;
+import com.resortmanagement.system.inventory.entity.InventoryItem;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "menu_item_ingredients")
 public class MenuItemIngredient extends Auditable {
 
     @Id
     @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name="menu_item_ingredient_id")
     private UUID id;
 
     /**
@@ -37,7 +52,7 @@ public class MenuItemIngredient extends Auditable {
      * Quantity required per ONE menu item
      * Stored in inventoryItem.baseUnit
      */
-    @Column(nullable = false, precision = 10, scale = 3)
+    @Column(name="quantity_required", nullable = false, precision = 10, scale = 3)
     private BigDecimal quantityRequired;
 
     /**
@@ -46,46 +61,4 @@ public class MenuItemIngredient extends Auditable {
      */
     @Column(nullable = false)
     private String unit;
-
-    // Manual Getters and Setters
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public MenuItem getMenuItem() {
-        return menuItem;
-    }
-
-    public void setMenuItem(MenuItem menuItem) {
-        this.menuItem = menuItem;
-    }
-
-    public InventoryItem getInventoryItem() {
-        return inventoryItem;
-    }
-
-    public void setInventoryItem(InventoryItem inventoryItem) {
-        this.inventoryItem = inventoryItem;
-    }
-
-    public BigDecimal getQuantityRequired() {
-        return quantityRequired;
-    }
-
-    public void setQuantityRequired(BigDecimal quantityRequired) {
-        this.quantityRequired = quantityRequired;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
 }

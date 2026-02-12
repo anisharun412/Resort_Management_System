@@ -1,14 +1,21 @@
 package com.resortmanagement.system.fnb.controller;
 
-import com.resortmanagement.system.fnb.entity.OrderItem;
-import com.resortmanagement.system.fnb.service.OrderItemService;
+import java.util.UUID;
 
 import org.jspecify.annotations.Nullable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
+import com.resortmanagement.system.fnb.entity.OrderItem;
+import com.resortmanagement.system.fnb.service.OrderItemService;
 
 @RestController
 @RequestMapping("/api/fnb/order-items")
@@ -31,7 +38,6 @@ public class OrderItemController {
     /**
      * Get order item by ID
      */
-    @SuppressWarnings("rawtypes")
     @GetMapping("/{id}")
     public ResponseEntity<OrderItem> getById(@PathVariable UUID id) {
         return service.findById(id)
@@ -43,7 +49,6 @@ public class OrderItemController {
      * Create a new order item
      * (Usually created via OrderService when creating an Order)
      */
-    @SuppressWarnings("rawtypes")
     @PostMapping
     public ResponseEntity<OrderItem> create(@RequestBody OrderItem orderItem) {
         OrderItem saved = service.save(orderItem);
@@ -53,7 +58,6 @@ public class OrderItemController {
     /**
      * Update an existing order item
      */
-    @SuppressWarnings("rawtypes")
     @PutMapping("/{id}")
     public ResponseEntity<OrderItem> update(
             @PathVariable UUID id,

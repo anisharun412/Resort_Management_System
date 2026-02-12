@@ -11,5 +11,8 @@ package com.resortmanagement.system.billing.entity;
 public enum FolioStatus {
     OPEN,
     CLOSED,
+    ACTIVE,
+    SETTLED,
+    CANCELLED,
     VOID
 }

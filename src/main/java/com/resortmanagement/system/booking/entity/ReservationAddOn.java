@@ -33,12 +33,14 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "reservation_add_on")
 public class ReservationAddOn extends AuditableSoftDeletable {
     @Id
     @UuidGenerator
@@ -54,10 +56,10 @@ public class ReservationAddOn extends AuditableSoftDeletable {
     @Column(nullable = false)
     private Integer quantity;
 
-    @Column(nullable = false)
+    @Column(name = "unit_price", nullable = false)
     private Double unitPrice;
     
-    @Column(nullable = false)
+    @Column(name = "total_price", nullable = false)
     private Double totalPrice; // price * quantity
 
     @Enumerated(EnumType.STRING)

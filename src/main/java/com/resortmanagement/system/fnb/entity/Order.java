@@ -1,151 +1,99 @@
 package com.resortmanagement.system.fnb.entity;
 
-import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
-import com.resortmanagement.system.common.enums.OrderStatus;
-import jakarta.persistence.*;
-// import lombok.Getter;
-// import lombok.Setter;
-
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
+import com.resortmanagement.system.billing.entity.Folio;
+import com.resortmanagement.system.booking.entity.BookingGuest;
+import com.resortmanagement.system.booking.entity.Reservation;
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
+import com.resortmanagement.system.common.enums.OrderStatus;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
 public class Order extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "order_id")
     private UUID id;
 
     /**
      * Guest placing the order (walk-in orders may not have this)
      */
-    @Column(name = "guest_id")
-    private UUID guestId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "guest_id")
+    private BookingGuest guestId;
 
     /**
      * Reservation context (nullable for POS orders)
      */
-    @Column(name = "reservation_id")
-    private UUID reservationId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")
+    private Reservation reservationId;
 
     /**
      * Table reference for restaurant orders
      */
     // @Column(name = "table_id")
     // private UUID tableId;
-    
-    // Adding tableId properly if needed, but commented out in original. 
+
+    // Adding tableId properly if needed, but commented out in original.
     // DTO had tableId though! OrderRequest had tableId.
     // OrderResponse had tableId.
     // If I map to Entity, Entity MUST have tableId if I want to persist it.
     // I will enable tableId column to match DTO usage.
-    
+
     @Column(name = "table_id")
     private UUID tableId;
 
-    @Column(nullable = false, precision = 12, scale = 2)
+    @Column(name = "total_amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal totalAmount = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
+    @Column(name = "status", nullable = false)
     private OrderStatus status;
 
-    @Column(nullable = false)
+    @Column(name = "placed_at", nullable = false)
     private Instant placedAt;
 
     /**
      * Linked folio for billing (nullable until billed)
      */
-    @Column(name = "assigned_folio_id")
-    private UUID assignedFolioId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assigned_folio_id")
+    private Folio assignedFolioId;
 
     /**
      * Order → OrderItem (bidirectional)
      */
-    @SuppressWarnings("rawtypes")
-    @OneToMany(
-            mappedBy = "order",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true,
-            fetch = FetchType.LAZY
-    )
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    // Manual Getters and Setters
+    //order_number VARCHAR(64) NOT NULL UNIQUE,
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getGuestId() {
-        return guestId;
-    }
-
-    public void setGuestId(UUID guestId) {
-        this.guestId = guestId;
-    }
-
-    public UUID getReservationId() {
-        return reservationId;
-    }
-
-    public void setReservationId(UUID reservationId) {
-        this.reservationId = reservationId;
-    }
-
-    public UUID getTableId() {
-        return tableId;
-    }
-
-    public void setTableId(UUID tableId) {
-        this.tableId = tableId;
-    }
-
-    public BigDecimal getTotalAmount() {
-        return totalAmount;
-    }
-
-    public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
-    }
-
-    public OrderStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
-    public Instant getPlacedAt() {
-        return placedAt;
-    }
-
-    public void setPlacedAt(Instant placedAt) {
-        this.placedAt = placedAt;
-    }
-
-    public UUID getAssignedFolioId() {
-        return assignedFolioId;
-    }
-
-    public void setAssignedFolioId(UUID assignedFolioId) {
-        this.assignedFolioId = assignedFolioId;
-    }
-
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 }
