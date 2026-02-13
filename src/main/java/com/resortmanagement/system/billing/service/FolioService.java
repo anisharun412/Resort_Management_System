@@ -10,8 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.resortmanagement.system.billing.entity.Folio;
 import com.resortmanagement.system.billing.entity.FolioStatus;
 import com.resortmanagement.system.billing.repository.FolioRepository;
+import com.resortmanagement.system.booking.entity.BookingGuest;
+import com.resortmanagement.system.booking.entity.Reservation;
+import com.resortmanagement.system.booking.repository.ReservationRepository;
 import com.resortmanagement.system.common.exception.ApplicationException;
-
+import com.resortmanagement.system.booking.repository.BookingGuestRepository;
 /**
  * FolioService
  * Purpose:
@@ -28,9 +31,17 @@ import com.resortmanagement.system.common.exception.ApplicationException;
 public class FolioService {
 
     private final FolioRepository repository;
+    private final ReservationRepository reservationRepository;
+    private final BookingGuestRepository bookingGuestRepository;
 
-    public FolioService(FolioRepository repository) {
+    public FolioService(
+        FolioRepository repository,
+        ReservationRepository reservationRepository,
+        BookingGuestRepository bookingGuestRepository
+    ) {
         this.repository = repository;
+        this.reservationRepository = reservationRepository;
+        this.bookingGuestRepository = bookingGuestRepository;
     }
 
     @Transactional(readOnly = true)
@@ -44,13 +55,30 @@ public class FolioService {
     }
 
     @Transactional(readOnly = true)
-    public List<Folio> findByReservationId(UUID reservationId) {
-        return repository.findByReservationId(reservationId);
+    public List<Folio> findAllByReservationId(UUID reservationId) {
+        return repository.findAllByReservationId(reservationId);
     }
 
     @Transactional(readOnly = true)
     public List<Folio> findByStatus(FolioStatus status) {
         return repository.findByStatus(status);
+    }
+
+    @Transactional(readOnly = true)
+    public Folio findByReservationId(UUID reservationId) {
+        return repository.findByReservationId(reservationId);
+    }
+
+    @Transactional(readOnly = true)
+    public Reservation getReservation(UUID reservationId) {
+        return reservationRepository.findByIdAndDeletedFalse(reservationId)
+                .orElseThrow(() -> new ApplicationException("Reservation not found with id: " + reservationId));
+    }
+
+    @Transactional(readOnly = true)
+    public BookingGuest getBookingGuest(UUID bookingGuestId) {
+        return bookingGuestRepository.findByIdAndDeletedFalse(bookingGuestId)
+                .orElseThrow(() -> new ApplicationException("Booking guest not found with id: " + bookingGuestId));
     }
 
     public Folio save(Folio folio) {

@@ -21,8 +21,6 @@ import com.resortmanagement.system.billing.entity.InvoiceStatus;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, UUID> {
     
-    List<Invoice> findByGuestId(UUID guestId);
-    
     List<Invoice> findByStatus(InvoiceStatus status);
     
     List<Invoice> findByFolioId(UUID folioId);

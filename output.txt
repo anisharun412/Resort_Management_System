@@ -1,0 +1,286 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.2)
+
+2026-02-13T06:45:44.861+05:30  INFO 19152 --- [system] [  restartedMain] c.r.system.SystemApplication             : Starting SystemApplication using Java 21.0.7 with PID 19152 (C:\Users\admin\Documents\SpringBoot\Resort_Management_System\system\target\classes started by admin in c:\Users\admin\Documents\SpringBoot\Resort_Management_System\system)
+2026-02-13T06:45:44.867+05:30  INFO 19152 --- [system] [  restartedMain] c.r.system.SystemApplication             : No active profile set, falling back to 1 default profile: "default"
+2026-02-13T06:45:44.956+05:30  INFO 19152 --- [system] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-13T06:45:44.956+05:30  INFO 19152 --- [system] [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-13T06:45:46.036+05:30  INFO 19152 --- [system] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-13T06:45:46.336+05:30  INFO 19152 --- [system] [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 284 ms. Found 47 JPA repository interfaces.
+2026-02-13T06:45:47.969+05:30  INFO 19152 --- [system] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-02-13T06:45:47.987+05:30  INFO 19152 --- [system] [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-13T06:45:47.988+05:30  INFO 19152 --- [system] [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-13T06:45:48.066+05:30  INFO 19152 --- [system] [  restartedMain] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 3105 ms
+2026-02-13T06:45:48.656+05:30  INFO 19152 --- [system] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-13T06:45:49.067+05:30  INFO 19152 --- [system] [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@236dc128
+2026-02-13T06:45:49.069+05:30  INFO 19152 --- [system] [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-13T06:45:49.127+05:30  INFO 19152 --- [system] [  restartedMain] org.flywaydb.core.FlywayExecutor         : Database: jdbc:mysql://localhost:3306/resort_db (MySQL 8.0)
+2026-02-13T06:45:49.203+05:30  INFO 19152 --- [system] [  restartedMain] o.f.core.internal.command.DbValidate     : Successfully validated 0 migrations (execution time 00:00.036s)
+2026-02-13T06:45:49.203+05:30  WARN 19152 --- [system] [  restartedMain] o.f.core.internal.command.DbValidate     : No migrations found. Are your locations set up correctly?
+2026-02-13T06:45:49.224+05:30  INFO 19152 --- [system] [  restartedMain] o.f.core.internal.command.DbMigrate      : Current version of schema `resort_db`: << Empty Schema >>
+2026-02-13T06:45:49.228+05:30  INFO 19152 --- [system] [  restartedMain] o.f.core.internal.command.DbMigrate      : Schema `resort_db` is up to date. No migration necessary.
+2026-02-13T06:45:49.409+05:30  INFO 19152 --- [system] [  restartedMain] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-13T06:45:49.471+05:30  INFO 19152 --- [system] [  restartedMain] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-13T06:45:49.999+05:30  INFO 19152 --- [system] [  restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-13T06:45:50.088+05:30  INFO 19152 --- [system] [  restartedMain] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/resort_db]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.0.45
+	Default catalog/schema: resort_db/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-13T06:45:50.103+05:30  INFO 19152 --- [system] [  restartedMain] org.hibernate.orm.incubating             : HHH90006001: Setting 'hibernate.type.preferred_uuid_jdbc_type' is still incubating (see Javadoc of corresponding member of 'org.hibernate.cfg.AvailableSettings')
+2026-02-13T06:45:50.534+05:30  INFO 19152 --- [system] [  restartedMain] org.hibernate.orm.incubating             : HHH90006001: Setting 'hibernate.type.preferred_uuid_jdbc_type' is still incubating (see Javadoc of corresponding member of 'org.hibernate.cfg.AvailableSettings')
+2026-02-13T06:45:51.865+05:30  INFO 19152 --- [system] [  restartedMain] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: alter table `activity_events` drop foreign key `FKs2xefktrkp8yi08ka0k9wmaw0`
+Hibernate: alter table `booking_guest` drop foreign key `FKeokrbmd4xkuixd2xkph8uduks`
+Hibernate: alter table `booking_guest` drop foreign key `FK479j1t1yut9ohudu9j2brj380`
+Hibernate: alter table `communications` drop foreign key `FK6xu1lt2q0fndn53g635ls0byr`
+Hibernate: alter table `communications` drop foreign key `FKh6hou1x3ueclr9xt2q5rvw0h1`
+Hibernate: alter table `employee_roles` drop foreign key `FKpxra3rexqufph0wloblthqswu`
+Hibernate: alter table `employee_roles` drop foreign key `FKw3pfqsijn1wy0wdlb7hvmhal`
+Hibernate: alter table `feedback_reviews` drop foreign key `FKbnmheh7oveff5qmarir0x530b`
+Hibernate: alter table `feedback_reviews` drop foreign key `FK13cgk50frqytdgs0vb076jtit`
+Hibernate: alter table `folio` drop foreign key `FKhbivqusrb21k4wyb87iuuuq2i`
+Hibernate: alter table `folio` drop foreign key `FKeack3srs6g35qa7tol1tybtv9`
+Hibernate: alter table `help_tickets` drop foreign key `FKkpu3202yusdr3mjumbkal9cjo`
+Hibernate: alter table `help_tickets` drop foreign key `FKmtu971nou2ltvoem4n3mi8oj5`
+Hibernate: alter table `help_tickets` drop foreign key `FKg2v6biyb239r7srfdx3465dhe`
+Hibernate: alter table `housekeeping_tasks` drop foreign key `FKdisw394u9637mh8k67bwo3lel`
+Hibernate: alter table `housekeeping_tasks` drop foreign key `FKrx2c49pilh0okftyo5v2a7bni`
+Hibernate: alter table `inventory_transaction` drop foreign key `FK2v7hcbf97f89322frodmxoufq`
+Hibernate: alter table `invoice` drop foreign key `FKin2pdvj9edi4us5rtiupoimpj`
+Hibernate: alter table `invoice` drop foreign key `FK1rnj4dsbjnj05p3fhypwfgayi`
+Hibernate: alter table `maintenance_requests` drop foreign key `FK370jxelpfa2xm1wbobnnhf92b`
+Hibernate: alter table `maintenance_requests` drop foreign key `FKkb78w8w7tv8nptcx3kqfp824e`
+Hibernate: alter table `maintenance_requests` drop foreign key `FKeq778ptc64my28iskdcjn8gop`
+Hibernate: alter table `maintenance_requests` drop foreign key `FKn3yrqfi8i7lwaw0uen14of14d`
+Hibernate: alter table `menu_item_ingredients` drop foreign key `FKcv7n41c5ttym2wxilejj3ls4m`
+Hibernate: alter table `menu_item_ingredients` drop foreign key `FKen3j27mhgk2dv22sswp5vdcnx`
+Hibernate: alter table `menu_items` drop foreign key `FKbrvibvskk6kw5lcosjq8jlby5`
+Hibernate: alter table `order_items` drop foreign key `FKidvnxo5a5j6paj6c5wrl516wn`
+Hibernate: alter table `order_items` drop foreign key `FK6gg8woymk43fp55jtjlgkd1eh`
+Hibernate: alter table `orders` drop foreign key `FKpv0h6v0xxqfcg41mlsx59g3vr`
+Hibernate: alter table `orders` drop foreign key `FKf16ww3x8ywarab450ukxqh8pn`
+Hibernate: alter table `orders` drop foreign key `FK6kwwp1ek866pwl0338b76qlw4`
+Hibernate: alter table `package_items` drop foreign key `FK5ccqgevchtwgmewgjv6ivjaau`
+Hibernate: alter table `payment` drop foreign key `FKdb875yobbr5tye75xyv3lv1sw`
+Hibernate: alter table `payrolls` drop foreign key `FKpn4imuc7b3pdi65idh6658bb9`
+Hibernate: alter table `promotion_packages` drop foreign key `FKe3194bo0l1m1miow0cipj07xh`
+Hibernate: alter table `promotion_packages` drop foreign key `FKl0ao3goclb6hhrepnmvv2r3g5`
+Hibernate: alter table `purchase_order_lines` drop foreign key `FKpbx5acn60ba0via2k21ye660p`
+Hibernate: alter table `purchase_order_lines` drop foreign key `FK74nkbvenvxykyvb63jjuwoyjw`
+Hibernate: alter table `purchase_orders` drop foreign key `FKystkqgpullmb21i4sdxxg25q`
+Hibernate: alter table `rate_history` drop foreign key `FK3fjph5pfma4tynt8vp6mbxw5x`
+Hibernate: alter table `rate_plan` drop foreign key `FK9di20kd2jt6exh9oqs5xr92jc`
+Hibernate: alter table `refund` drop foreign key `FKjoyy0n94812av7bl7827rd3q9`
+Hibernate: alter table `reservation` drop foreign key `FKmesflnsas7b79t1rsamuy2rj3`
+Hibernate: alter table `reservation` drop foreign key `FKgmi2qx2irrlhvfr1burex6faa`
+Hibernate: alter table `reservation` drop foreign key `FKkkhmyqaiq36y6m3d3830gw913`
+Hibernate: alter table `reservation_add_on` drop foreign key `FKcjyxhhr58n0lxcvinpyjsbyq3`
+Hibernate: alter table `reservation_daily_rate` drop foreign key `FK7trriox44g0yapj742iqrtlv9`
+Hibernate: alter table `reservation_daily_rate` drop foreign key `FK3c2nvs4cn7q1gydo2tw3w2r84`
+Hibernate: alter table `reservation_room_assignment` drop foreign key `FK2hwhdtg7k26p7r1khe0xjbwwk`
+Hibernate: alter table `reservation_room_assignment` drop foreign key `FK7lp0j16aiqhkknreffuhcjqsw`
+Hibernate: alter table `reservation_service_booking` drop foreign key `FKgkvhpj27wrprfwrmv8pcohtl4`
+Hibernate: alter table `reservation_service_booking` drop foreign key `FKs7vu1xyt5t8c3seko4lr041er`
+Hibernate: alter table `reservation_service_booking` drop foreign key `FKbis94xy7hwe9blj38vmbj99ft`
+Hibernate: alter table `room_amenities` drop foreign key `FKeop53cl3lpwysqvv2adat454b`
+Hibernate: alter table `room_amenities` drop foreign key `FKchok7o5ljt6nqxdoflpig6qt9`
+Hibernate: alter table `room_blocks` drop foreign key `FKt4xfcf45xlmp1utt363s1545r`
+Hibernate: alter table `room_blocks` drop foreign key `FK3y3j1151yf18ghrlo9uco31jw`
+Hibernate: alter table `rooms` drop foreign key `FKfrnj07geijggu5s8uj1xqkhmd`
+Hibernate: alter table `shift_schedules` drop foreign key `FK3p106v871tnhhdj03j2qx9if3`
+Hibernate: drop table if exists `account_ledger`
+Hibernate: drop table if exists `activity_events`
+Hibernate: drop table if exists `amenities`
+Hibernate: drop table if exists `audit_log`
+Hibernate: drop table if exists `booking_guest`
+Hibernate: drop table if exists `communications`
+Hibernate: drop table if exists `employee_roles`
+Hibernate: drop table if exists `employees`
+Hibernate: drop table if exists `feedback_reviews`
+Hibernate: drop table if exists `folio`
+Hibernate: drop table if exists `guest`
+Hibernate: drop table if exists `help_tickets`
+Hibernate: drop table if exists `housekeeping_tasks`
+Hibernate: drop table if exists `inventory_items`
+Hibernate: drop table if exists `inventory_transaction`
+Hibernate: drop table if exists `invoice`
+Hibernate: drop table if exists `loyalty_members`
+Hibernate: drop table if exists `maintenance_requests`
+Hibernate: drop table if exists `menu_item_ingredients`
+Hibernate: drop table if exists `menu_items`
+Hibernate: drop table if exists `menus`
+Hibernate: drop table if exists `order_items`
+Hibernate: drop table if exists `orders`
+Hibernate: drop table if exists `package_items`
+Hibernate: drop table if exists `packages`
+Hibernate: drop table if exists `payment`
+Hibernate: drop table if exists `payrolls`
+Hibernate: drop table if exists `promotion_packages`
+Hibernate: drop table if exists `promotions`
+Hibernate: drop table if exists `purchase_order_lines`
+Hibernate: drop table if exists `purchase_orders`
+Hibernate: drop table if exists `rate_history`
+Hibernate: drop table if exists `rate_plan`
+Hibernate: drop table if exists `refund`
+Hibernate: drop table if exists `report_meta`
+Hibernate: drop table if exists `reservation`
+Hibernate: drop table if exists `reservation_add_on`
+Hibernate: drop table if exists `reservation_daily_rate`
+Hibernate: drop table if exists `reservation_room_assignment`
+Hibernate: drop table if exists `reservation_service_booking`
+Hibernate: drop table if exists `roles`
+Hibernate: drop table if exists `room_amenities`
+Hibernate: drop table if exists `room_blocks`
+Hibernate: drop table if exists `room_types`
+Hibernate: drop table if exists `rooms`
+Hibernate: drop table if exists `service_items`
+Hibernate: drop table if exists `shift_schedules`
+Hibernate: drop table if exists `suppliers`
+Hibernate: create table `account_ledger` (`balance` decimal(15,2), `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `version` bigint, `ledger_id` varchar(36) not null, `account_code` varchar(50) not null, `created_by` varchar(100), `name` varchar(100) not null, `updated_by` varchar(100), `currency` varchar(255), `account_type` enum ('ASSET','CURRENT','EXPENSE','LIABILITY','REVENUE','SAVINGS') not null, primary key (`ledger_id`)) engine=InnoDB
+Hibernate: create table `activity_events` (`capacity` integer not null, `is_deleted` bit not null, `price` decimal(10,2) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `end_time` datetime(6) not null, `start_time` datetime(6) not null, `updated_at` datetime(6) not null, `activity_event_id` varchar(36) not null, `instructor_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(500), `title` varchar(255) not null, `status` enum ('CANCELLED','COMPLETED','SCHEDULED') not null, primary key (`activity_event_id`)) engine=InnoDB
+Hibernate: create table `amenities` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `category` varchar(255), `description` varchar(255), `name` varchar(255) not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `audit_log` (`timestamp` datetime(6) not null, `audit_id` varchar(36) not null, `target_id` varchar(36) not null, `performed_by` varchar(100) not null, `target_entity` varchar(100) not null, `reason` varchar(500), `changes_json` varchar(255), `action` enum ('CREATE','DELETE','UPDATE') not null, primary key (`audit_id`)) engine=InnoDB
+Hibernate: create table `booking_guest` (`age` integer, `is_deleted` bit not null, `is_primary` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `booking_guest_id` varchar(36) not null, `guest_id` varchar(36) not null, `reservation_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `special_needs` varchar(500), `guest_type` enum ('ADULT','CHILD','INFANT','SENIOR') not null, primary key (`booking_guest_id`)) engine=InnoDB
+Hibernate: create table `communications` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `sent_at` datetime(6), `updated_at` datetime(6) not null, `guest_id` varchar(36), `id` varchar(36) not null, `reservation_id` varchar(36), `created_by` varchar(100), `updated_by` varchar(100), `body_snippet` varchar(255), `channel` varchar(255), `recipient` varchar(255), `subject` varchar(255), `status` enum ('FAILED','PENDING','SENT'), `type` enum ('EMAIL','PUSH','SMS','WHATSAPP'), primary key (`id`)) engine=InnoDB
+Hibernate: create table `employee_roles` (`assignedDate` date not null, `endDate` date, `is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `employee_id` varchar(36) not null, `id` varchar(36) not null, `role_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), primary key (`id`)) engine=InnoDB
+Hibernate: create table `employees` (`hireDate` date not null, `is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `credentialsHash` varchar(255) not null, `email` varchar(255) not null, `firstName` varchar(255) not null, `lastName` varchar(255) not null, `phone` varchar(255), `status` enum ('ACTIVE','INACTIVE','ON_LEAVE','TERMINATED') not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `feedback_reviews` (`is_deleted` bit not null, `rating` integer not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `responded_at` datetime(6), `updated_at` datetime(6) not null, `guest_id` varchar(36), `id` varchar(36) not null, `reservation_id` varchar(36), `response_by` varchar(36), `created_by` varchar(100), `updated_by` varchar(100), `comments` varchar(255), primary key (`id`)) engine=InnoDB
+Hibernate: create table `folio` (`total_amount` decimal(10,2), `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `booking_guest_id` varchar(36), `folio_id` varchar(36) not null, `reservation_id` varchar(36), `folio_number` varchar(64) not null, `created_by` varchar(100), `name` varchar(100) not null, `updated_by` varchar(100), `status` enum ('ACTIVE','CANCELLED','CLOSED','OPEN','SETTLED','VOID') not null, primary key (`folio_id`)) engine=InnoDB
+Hibernate: create table `guest` (`dob` date, `is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `phone` varchar(20), `guest_id` varchar(36) not null, `loyalty_id` varchar(50), `created_by` varchar(100), `first_name` varchar(100) not null, `last_name` varchar(100) not null, `updated_by` varchar(100), `email` varchar(150) not null, `address` varchar(255), primary key (`guest_id`)) engine=InnoDB
+Hibernate: create table `help_tickets` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `resolved_at` datetime(6), `updated_at` datetime(6) not null, `assigned_to` varchar(36), `guest_id` varchar(36), `id` varchar(36) not null, `reservation_id` varchar(36), `created_by` varchar(100), `updated_by` varchar(100), `category` varchar(255), `description` varchar(255), `ticket_number` varchar(255), `priority` enum ('HIGH','LOW','MEDIUM','URGENT'), `status` enum ('CLOSED','IN_PROGRESS','OPEN','RESOLVED'), primary key (`id`)) engine=InnoDB
+Hibernate: create table `housekeeping_tasks` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `scheduled_at` datetime(6) not null, `updated_at` datetime(6) not null, `id` varchar(36) not null, `room_id` varchar(36) not null, `staff_id` varchar(36), `created_by` varchar(100), `updated_by` varchar(100), `notes` varchar(500), `priority` enum ('HIGH','LOW','MEDIUM') not null, `status` enum ('CANCELLED','COMPLETED','IN_PROGRESS','PENDING') not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `inventory_items` (`quantity_on_hand` decimal(15,3) not null, `reorder_point` decimal(15,3) not null, `reorder_qty` decimal(38,2), `unit_cost` decimal(15,2) not null, `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `version` bigint, `inventory_item_id` varchar(36) not null, `sku` varchar(50) not null, `created_by` varchar(100), `updated_by` varchar(100), `base_unit` varchar(255) not null, `name` varchar(255) not null, primary key (`inventory_item_id`)) engine=InnoDB
+Hibernate: create table `inventory_transaction` (`quantity` decimal(38,2) not null, `unit_cost` decimal(38,2), `created_at` datetime(6) not null, `transaction_date` datetime(6), `updated_at` datetime(6) not null, `inventory_item_id` varchar(36) not null, `reference_id` varchar(36), `transaction_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `reference_type` varchar(255), `transaction_type` enum ('ADJUSTMENT','ORDER','PURCHASE','WASTAGE') not null, primary key (`transaction_id`)) engine=InnoDB
+Hibernate: create table `invoice` (`tax_amount` decimal(10,2), `total_amount` decimal(10,2) not null, `created_at` datetime(6) not null, `due_date` datetime(6), `issue_date` datetime(6) not null, `updated_at` datetime(6) not null, `version` bigint, `folio_id` varchar(36), `invoice_id` varchar(36) not null, `reservation_id` varchar(36), `invoice_number` varchar(64) not null, `created_by` varchar(100), `updated_by` varchar(100), `currency` varchar(255), `status` enum ('CANCELLED','DRAFT','ISSUED','PAID','PARTIALLY_PAID','REFUNDED') not null, primary key (`invoice_id`)) engine=InnoDB
+Hibernate: create table `loyalty_members` (`is_deleted` bit not null, `pointsBalance` decimal(10,2) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `enrolledAt` datetime(6) not null, `updated_at` datetime(6) not null, `guest_id` varchar(36) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `tier` varchar(255) not null, `status` enum ('ACTIVE','INACTIVE','SUSPENDED') not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `maintenance_requests` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `resolved_at` datetime(6), `updated_at` datetime(6) not null, `assigned_staff_id` varchar(36), `id` varchar(36) not null, `reported_by` varchar(36), `room_block_id` varchar(36), `room_or_facility_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(255), `severity` enum ('CRITICAL','HIGH','LOW','MEDIUM'), `status` enum ('CLOSED','IN_PROGRESS','REPORTED','RESOLVED'), primary key (`id`)) engine=InnoDB
+Hibernate: create table `menu_item_ingredients` (`quantity_required` decimal(10,3) not null, `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `inventory_item_id` varchar(36) not null, `menu_item_id` varchar(36) not null, `menu_item_ingredient_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `unit` varchar(255) not null, primary key (`menu_item_ingredient_id`)) engine=InnoDB
+Hibernate: create table `menu_items` (`is_available` bit not null, `is_deleted` bit not null, `prep_time_mins` integer, `price` decimal(10,2) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `menu_id` varchar(36) not null, `menu_item_id` varchar(36) not null, `created_by` varchar(100), `sku` varchar(100), `updated_by` varchar(100), `description` varchar(500), `name` varchar(255) not null, primary key (`menu_item_id`)) engine=InnoDB
+Hibernate: create table `menus` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `menu_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(500), `name` varchar(255) not null, primary key (`menu_id`)) engine=InnoDB
+Hibernate: create table `order_items` (`is_deleted` bit not null, `quantity` integer not null, `total_price` decimal(12,2) not null, `unit_price` decimal(10,2) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `menu_item_id` varchar(36) not null, `order_id` varchar(36) not null, `order_item_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), primary key (`order_item_id`)) engine=InnoDB
+Hibernate: create table `orders` (`is_deleted` bit not null, `total_amount` decimal(12,2) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `placed_at` datetime(6) not null, `updated_at` datetime(6) not null, `assigned_folio_id` varchar(36), `guest_id` varchar(36), `order_id` varchar(36) not null, `reservation_id` varchar(36), `table_id` varchar(36), `created_by` varchar(100), `updated_by` varchar(100), `status` enum ('CANCELLED','COMPLETED','IN_PROGRESS','PENDING') not null, primary key (`order_id`)) engine=InnoDB
+Hibernate: create table `package_items` (`is_deleted` bit not null, `price` decimal(10,2) not null, `qty` integer not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `inventory_item_id` bigint, `menu_item_id` bigint, `room_type_id` bigint, `service_item_id` bigint, `updated_at` datetime(6) not null, `id` varchar(36) not null, `package_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), primary key (`id`)) engine=InnoDB
+Hibernate: create table `packages` (`is_deleted` bit not null, `price` decimal(10,2) not null, `usageLimit` integer, `validFrom` date not null, `validTo` date not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(255), `name` varchar(255) not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `payment` (`amount` decimal(10,2) not null, `created_at` datetime(6) not null, `processed_at` datetime(6), `updated_at` datetime(6) not null, `invoice_id` varchar(36), `payment_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `currency` varchar(255), `provider_response` varchar(255), `transaction_reference` varchar(255), `payment_method` enum ('BANK_TRANSFER','CARD','CASH','UPI','WALLET') not null, `status` enum ('FAILED','PENDING','REFUNDED','SUCCESS') not null, primary key (`payment_id`)) engine=InnoDB
+Hibernate: create table `payrolls` (`deductions` decimal(10,2) not null, `grossPay` decimal(10,2) not null, `is_deleted` bit not null, `netPay` decimal(10,2) not null, `periodEnd` date not null, `periodStart` date not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `paidAt` datetime(6), `updated_at` datetime(6) not null, `employee_id` varchar(36) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), primary key (`id`)) engine=InnoDB
+Hibernate: create table `promotion_packages` (`package_id` varchar(36) not null, `promotion_id` varchar(36) not null) engine=InnoDB
+Hibernate: create table `promotions` (`is_deleted` bit not null, `usageLimit` integer, `validFrom` date not null, `validTo` date not null, `value` decimal(10,2) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `code` varchar(255) not null, `description` varchar(255), `terms` varchar(255), `discountType` enum ('AMOUNT','PERCENT') not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `purchase_order_lines` (`quantity` decimal(15,3) not null, `total_price` decimal(15,2) not null, `unit_price` decimal(15,2) not null, `inventory_item_id` varchar(36) not null, `po_line_id` varchar(36) not null, `purchase_order_id` varchar(36) not null, primary key (`po_line_id`)) engine=InnoDB
+Hibernate: create table `purchase_orders` (`total_amount` decimal(15,2) not null, `created_at` datetime(6) not null, `expected_delivery` datetime(6), `updated_at` datetime(6) not null, `purchase_order_id` varchar(36) not null, `supplier_id` varchar(36) not null, `po_number` varchar(50) not null, `created_by` varchar(100), `updated_by` varchar(100), `status` enum ('CANCELLED','CREATED','DELIVERED','SENT') not null, primary key (`purchase_order_id`)) engine=InnoDB
+Hibernate: create table `rate_history` (`end_date` date, `price` float(53), `start_date` date, `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `rate_history_id` varchar(36) not null, `rate_plan_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `season_name` varchar(255), primary key (`rate_history_id`)) engine=InnoDB
+Hibernate: create table `rate_plan` (`base_price` float(53) not null, `is_deleted` bit not null, `is_refundable` bit, `max_stay_nights` integer, `min_stay_nights` integer, `valid_from` date, `valid_to` date, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `rate_plan_id` varchar(36) not null, `room_type_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `cancellation_policy` varchar(1000), `description` varchar(255), `name` varchar(255), primary key (`rate_plan_id`)) engine=InnoDB
+Hibernate: create table `refund` (`amount` decimal(10,2) not null, `created_at` datetime(6) not null, `processed_at` datetime(6), `updated_at` datetime(6) not null, `payment_id` varchar(36), `refund_id` varchar(36) not null, `created_by` varchar(100), `processed_by` varchar(100), `updated_by` varchar(100), `reason` varchar(500), `provider_refund_ref` varchar(255), `status` enum ('FAILED','PROCESSING','REQUESTED','SUCCESS') not null, primary key (`refund_id`)) engine=InnoDB
+Hibernate: create table `report_meta` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `last_run_at` datetime(6), `updated_at` datetime(6) not null, `owner_id` varchar(36), `report_id` varchar(36) not null, `created_by` varchar(100), `name` varchar(100) not null, `schedule_string` varchar(100), `updated_by` varchar(100), primary key (`report_id`)) engine=InnoDB
+Hibernate: create table `reservation` (`endDate` date, `isPackageBooking` bit, `is_deleted` bit not null, `numGuests` integer, `startDate` date, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `bookingSourceId` varchar(36), `guest_id` varchar(36) not null, `package_id` varchar(36), `rate_plan_id` varchar(36), `reservation_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `status` enum ('CANCELLED','CHECKED_IN','CHECKED_OUT','CONFIRMED','CREATED'), primary key (`reservation_id`)) engine=InnoDB
+Hibernate: create table `reservation_add_on` (`is_deleted` bit not null, `quantity` integer not null, `total_price` float(53) not null, `unit_price` float(53) not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `reservation_add_on_id` varchar(36) not null, `reservation_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `add_on_code` varchar(255) not null, `add_on_name` varchar(255) not null, `status` enum ('ACTIVE','CANCELLED','REQUESTED'), primary key (`reservation_add_on_id`)) engine=InnoDB
+Hibernate: create table `reservation_daily_rate` (`amount` float(53), `date` date, `is_package_rate` bit, `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `rate_plan_id` varchar(36), `reservation_daily_rate_id` varchar(36) not null, `reservation_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), primary key (`reservation_daily_rate_id`)) engine=InnoDB
+Hibernate: create table `reservation_room_assignment` (`check_in_date` date not null, `check_out_date` date not null, `is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `assigned_id` varchar(36) not null, `reservation_id` varchar(36) not null, `room_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `status` enum ('ASSIGNED','CANCELLED','CHECKED_IN','CHECKED_OUT','UNASSIGNED'), primary key (`assigned_id`)) engine=InnoDB
+Hibernate: create table `reservation_service_booking` (`is_deleted` bit not null, `is_included_in_package` bit, `price` float(53), `quantity` integer, `created_at` datetime(6) not null, `deleted_at` datetime(6), `service_date` datetime(6) not null, `updated_at` datetime(6) not null, `folio_id` varchar(36) not null, `reservation_id` varchar(36) not null, `reservation_service_id` varchar(36) not null, `service_item_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `status` enum ('CANCELLED','COMPLETED','SCHEDULED'), primary key (`reservation_service_id`)) engine=InnoDB
+Hibernate: create table `roles` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(255), `name` varchar(255) not null, `permissions_json` varchar(255), primary key (`id`)) engine=InnoDB
+Hibernate: create table `room_amenities` (`complimentary` bit, `created_at` datetime(6) not null, `updated_at` datetime(6) not null, `amenity_id` varchar(36), `id` varchar(36) not null, `room_id` varchar(36), `created_by` varchar(100), `updated_by` varchar(100), primary key (`id`)) engine=InnoDB
+Hibernate: create table `room_blocks` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `end_date` datetime(6) not null, `start_date` datetime(6) not null, `updated_at` datetime(6) not null, `id` varchar(36) not null, `maintenance_request_id` varchar(36), `room_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `reason` varchar(255), `status` enum ('ACTIVE','AVAILABLE','CANCELLED','EXPIRED'), primary key (`id`)) engine=InnoDB
+Hibernate: create table `room_types` (`area_sq_ft` integer, `base_rate` float(53), `is_deleted` bit not null, `max_occupancy` integer, `total_keys` integer, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `amenities_summary` varchar(255), `bed_type` varchar(255), `name` varchar(255) not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `rooms` (`is_deleted` bit not null, `max_occupancy` integer, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `id` varchar(36) not null, `room_type_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(255), `floor` varchar(255), `room_number` varchar(255) not null, `status` enum ('AVAILABLE','CLEAN','DIRTY','OUT_OF_SERVICE') not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `service_items` (`base_price` decimal(10,2) not null, `duration_mins` integer, `is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `service_item_id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `description` varchar(500), `category` varchar(255) not null, `name` varchar(255) not null, primary key (`service_item_id`)) engine=InnoDB
+Hibernate: create table `shift_schedules` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `endTime` datetime(6) not null, `startTime` datetime(6) not null, `updated_at` datetime(6) not null, `employee_id` varchar(36) not null, `id` varchar(36) not null, `created_by` varchar(100), `updated_by` varchar(100), `location` varchar(255) not null, `position` varchar(255) not null, primary key (`id`)) engine=InnoDB
+Hibernate: create table `suppliers` (`is_deleted` bit not null, `created_at` datetime(6) not null, `deleted_at` datetime(6), `updated_at` datetime(6) not null, `supplier_id` varchar(36) not null, `phone` varchar(50), `created_by` varchar(100), `email` varchar(100), `updated_by` varchar(100), `address` varchar(255), `contact_person` varchar(255), `name` varchar(255) not null, primary key (`supplier_id`)) engine=InnoDB
+Hibernate: alter table `account_ledger` add constraint `UKhbfxq4l4o1x1poy9r93nphexs` unique (`account_code`)
+Hibernate: alter table `employees` add constraint `UKlu04ssuql1o02iqc1im9fp4vq` unique (`email`)
+Hibernate: alter table `folio` add constraint `UKhjmb6l26709aul832o7owa7w5` unique (`folio_number`)
+Hibernate: alter table `guest` add constraint `UKbhiltppf2rydwj6fnpgpj32hl` unique (`email`)
+Hibernate: alter table `help_tickets` add constraint `UKecvs4xgmkqqno7kt9hgoj4xd1` unique (`ticket_number`)
+Hibernate: alter table `inventory_items` add constraint `UKof73d00eeiwp9d3erh93dvx32` unique (`sku`)
+Hibernate: alter table `invoice` add constraint `UKsbi9p9u8qxin8l54drwafhp7b` unique (`invoice_number`)
+Hibernate: alter table `loyalty_members` add constraint `UK3x7pn4y6i0pv8ih3bjsfuu5t1` unique (`guest_id`)
+Hibernate: alter table `menus` add constraint `UKde18sx2bknljy728segux0xtq` unique (`name`)
+Hibernate: alter table `promotions` add constraint `UK761kgs1ct2ry728lqu82nexwi` unique (`code`)
+Hibernate: alter table `purchase_orders` add constraint `UKsem0yhjya7sieg5xdlvs3784v` unique (`po_number`)
+Hibernate: alter table `roles` add constraint `UKkjfxuseyl03cjt89s39o9a3mo` unique (`name`)
+Hibernate: alter table `room_amenities` add constraint `UKsjo896xw28fyrgjrkyffflmww` unique (`room_id`, `amenity_id`)
+Hibernate: alter table `room_types` add constraint `UKpekfetw93tpemlf9nmrkfhq69` unique (`name`)
+Hibernate: alter table `rooms` add constraint `UKp8oqdxbib6no5okvyhf9vfwp` unique (`room_number`)
+Hibernate: alter table `activity_events` add constraint `FKs2xefktrkp8yi08ka0k9wmaw0` foreign key (`instructor_id`) references `employees` (`id`)
+Hibernate: alter table `booking_guest` add constraint `FKeokrbmd4xkuixd2xkph8uduks` foreign key (`guest_id`) references `guest` (`guest_id`)
+Hibernate: alter table `booking_guest` add constraint `FK479j1t1yut9ohudu9j2brj380` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `communications` add constraint `FK6xu1lt2q0fndn53g635ls0byr` foreign key (`guest_id`) references `guest` (`guest_id`)
+Hibernate: alter table `communications` add constraint `FKh6hou1x3ueclr9xt2q5rvw0h1` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `employee_roles` add constraint `FKpxra3rexqufph0wloblthqswu` foreign key (`employee_id`) references `employees` (`id`)
+Hibernate: alter table `employee_roles` add constraint `FKw3pfqsijn1wy0wdlb7hvmhal` foreign key (`role_id`) references `roles` (`id`)
+Hibernate: alter table `feedback_reviews` add constraint `FKbnmheh7oveff5qmarir0x530b` foreign key (`guest_id`) references `guest` (`guest_id`)
+Hibernate: alter table `feedback_reviews` add constraint `FK13cgk50frqytdgs0vb076jtit` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `folio` add constraint `FKhbivqusrb21k4wyb87iuuuq2i` foreign key (`booking_guest_id`) references `booking_guest` (`booking_guest_id`)
+Hibernate: alter table `folio` add constraint `FKeack3srs6g35qa7tol1tybtv9` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `help_tickets` add constraint `FKkpu3202yusdr3mjumbkal9cjo` foreign key (`assigned_to`) references `guest` (`guest_id`)
+Hibernate: alter table `help_tickets` add constraint `FKmtu971nou2ltvoem4n3mi8oj5` foreign key (`guest_id`) references `guest` (`guest_id`)
+Hibernate: alter table `help_tickets` add constraint `FKg2v6biyb239r7srfdx3465dhe` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `housekeeping_tasks` add constraint `FKdisw394u9637mh8k67bwo3lel` foreign key (`room_id`) references `rooms` (`id`)
+Hibernate: alter table `housekeeping_tasks` add constraint `FKrx2c49pilh0okftyo5v2a7bni` foreign key (`staff_id`) references `employees` (`id`)
+Hibernate: alter table `inventory_transaction` add constraint `FK2v7hcbf97f89322frodmxoufq` foreign key (`inventory_item_id`) references `inventory_items` (`inventory_item_id`)
+Hibernate: alter table `invoice` add constraint `FKin2pdvj9edi4us5rtiupoimpj` foreign key (`folio_id`) references `folio` (`folio_id`)
+Hibernate: alter table `invoice` add constraint `FK1rnj4dsbjnj05p3fhypwfgayi` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `maintenance_requests` add constraint `FK370jxelpfa2xm1wbobnnhf92b` foreign key (`assigned_staff_id`) references `employees` (`id`)
+Hibernate: alter table `maintenance_requests` add constraint `FKkb78w8w7tv8nptcx3kqfp824e` foreign key (`reported_by`) references `booking_guest` (`booking_guest_id`)
+Hibernate: alter table `maintenance_requests` add constraint `FKeq778ptc64my28iskdcjn8gop` foreign key (`room_or_facility_id`) references `rooms` (`id`)
+Hibernate: alter table `maintenance_requests` add constraint `FKn3yrqfi8i7lwaw0uen14of14d` foreign key (`room_block_id`) references `room_blocks` (`id`)
+Hibernate: alter table `menu_item_ingredients` add constraint `FKcv7n41c5ttym2wxilejj3ls4m` foreign key (`inventory_item_id`) references `inventory_items` (`inventory_item_id`)
+Hibernate: alter table `menu_item_ingredients` add constraint `FKen3j27mhgk2dv22sswp5vdcnx` foreign key (`menu_item_id`) references `menu_items` (`menu_item_id`)
+Hibernate: alter table `menu_items` add constraint `FKbrvibvskk6kw5lcosjq8jlby5` foreign key (`menu_id`) references `menus` (`menu_id`)
+Hibernate: alter table `order_items` add constraint `FKidvnxo5a5j6paj6c5wrl516wn` foreign key (`menu_item_id`) references `menu_items` (`menu_item_id`)
+Hibernate: alter table `order_items` add constraint `FK6gg8woymk43fp55jtjlgkd1eh` foreign key (`order_id`) references `orders` (`order_id`)
+Hibernate: alter table `orders` add constraint `FKpv0h6v0xxqfcg41mlsx59g3vr` foreign key (`assigned_folio_id`) references `folio` (`folio_id`)
+Hibernate: alter table `orders` add constraint `FKf16ww3x8ywarab450ukxqh8pn` foreign key (`guest_id`) references `booking_guest` (`booking_guest_id`)
+Hibernate: alter table `orders` add constraint `FK6kwwp1ek866pwl0338b76qlw4` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `package_items` add constraint `FK5ccqgevchtwgmewgjv6ivjaau` foreign key (`package_id`) references `packages` (`id`)
+Hibernate: alter table `payment` add constraint `FKdb875yobbr5tye75xyv3lv1sw` foreign key (`invoice_id`) references `invoice` (`invoice_id`)
+Hibernate: alter table `payrolls` add constraint `FKpn4imuc7b3pdi65idh6658bb9` foreign key (`employee_id`) references `employees` (`id`)
+Hibernate: alter table `promotion_packages` add constraint `FKe3194bo0l1m1miow0cipj07xh` foreign key (`package_id`) references `packages` (`id`)
+Hibernate: alter table `promotion_packages` add constraint `FKl0ao3goclb6hhrepnmvv2r3g5` foreign key (`promotion_id`) references `promotions` (`id`)
+Hibernate: alter table `purchase_order_lines` add constraint `FKpbx5acn60ba0via2k21ye660p` foreign key (`inventory_item_id`) references `inventory_items` (`inventory_item_id`)
+Hibernate: alter table `purchase_order_lines` add constraint `FK74nkbvenvxykyvb63jjuwoyjw` foreign key (`purchase_order_id`) references `purchase_orders` (`purchase_order_id`)
+Hibernate: alter table `purchase_orders` add constraint `FKystkqgpullmb21i4sdxxg25q` foreign key (`supplier_id`) references `suppliers` (`supplier_id`)
+Hibernate: alter table `rate_history` add constraint `FK3fjph5pfma4tynt8vp6mbxw5x` foreign key (`rate_plan_id`) references `rate_plan` (`rate_plan_id`)
+Hibernate: alter table `rate_plan` add constraint `FK9di20kd2jt6exh9oqs5xr92jc` foreign key (`room_type_id`) references `room_types` (`id`)
+Hibernate: alter table `refund` add constraint `FKjoyy0n94812av7bl7827rd3q9` foreign key (`payment_id`) references `payment` (`payment_id`)
+Hibernate: alter table `reservation` add constraint `FKmesflnsas7b79t1rsamuy2rj3` foreign key (`guest_id`) references `guest` (`guest_id`)
+Hibernate: alter table `reservation` add constraint `FKgmi2qx2irrlhvfr1burex6faa` foreign key (`package_id`) references `packages` (`id`)
+Hibernate: alter table `reservation` add constraint `FKkkhmyqaiq36y6m3d3830gw913` foreign key (`rate_plan_id`) references `rate_plan` (`rate_plan_id`)
+Hibernate: alter table `reservation_add_on` add constraint `FKcjyxhhr58n0lxcvinpyjsbyq3` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `reservation_daily_rate` add constraint `FK7trriox44g0yapj742iqrtlv9` foreign key (`rate_plan_id`) references `rate_plan` (`rate_plan_id`)
+Hibernate: alter table `reservation_daily_rate` add constraint `FK3c2nvs4cn7q1gydo2tw3w2r84` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `reservation_room_assignment` add constraint `FK2hwhdtg7k26p7r1khe0xjbwwk` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `reservation_room_assignment` add constraint `FK7lp0j16aiqhkknreffuhcjqsw` foreign key (`room_id`) references `rooms` (`id`)
+Hibernate: alter table `reservation_service_booking` add constraint `FKgkvhpj27wrprfwrmv8pcohtl4` foreign key (`folio_id`) references `folio` (`folio_id`)
+Hibernate: alter table `reservation_service_booking` add constraint `FKs7vu1xyt5t8c3seko4lr041er` foreign key (`reservation_id`) references `reservation` (`reservation_id`)
+Hibernate: alter table `reservation_service_booking` add constraint `FKbis94xy7hwe9blj38vmbj99ft` foreign key (`service_item_id`) references `service_items` (`service_item_id`)
+Hibernate: alter table `room_amenities` add constraint `FKeop53cl3lpwysqvv2adat454b` foreign key (`amenity_id`) references `amenities` (`id`)
+Hibernate: alter table `room_amenities` add constraint `FKchok7o5ljt6nqxdoflpig6qt9` foreign key (`room_id`) references `rooms` (`id`)
+Hibernate: alter table `room_blocks` add constraint `FKt4xfcf45xlmp1utt363s1545r` foreign key (`maintenance_request_id`) references `maintenance_requests` (`id`)
+Hibernate: alter table `room_blocks` add constraint `FK3y3j1151yf18ghrlo9uco31jw` foreign key (`room_id`) references `rooms` (`id`)
+Hibernate: alter table `rooms` add constraint `FKfrnj07geijggu5s8uj1xqkhmd` foreign key (`room_type_id`) references `room_types` (`id`)
+Hibernate: alter table `shift_schedules` add constraint `FK3p106v871tnhhdj03j2qx9if3` foreign key (`employee_id`) references `employees` (`id`)
+2026-02-13T06:46:00.023+05:30  INFO 19152 --- [system] [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-13T06:46:00.119+05:30  INFO 19152 --- [system] [  restartedMain] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-13T06:46:02.511+05:30  WARN 19152 --- [system] [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-13T06:46:03.190+05:30  INFO 19152 --- [system] [  restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-02-13T06:46:03.435+05:30  INFO 19152 --- [system] [  restartedMain] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-02-13T06:46:03.442+05:30  INFO 19152 --- [system] [  restartedMain] c.r.system.SystemApplication             : Started SystemApplication in 19.213 seconds (process running for 19.94)
+2026-02-13T06:46:19.559+05:30  INFO 19152 --- [system] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-13T06:46:19.570+05:30  INFO 19152 --- [system] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-02-13T06:46:19.587+05:30  INFO 19152 --- [system] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-13T06:46:19.593+05:30  INFO 19152 --- [system] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-13T06:46:19.600+05:30  INFO 19152 --- [system] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

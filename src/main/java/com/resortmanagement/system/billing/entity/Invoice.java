@@ -30,10 +30,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.booking.entity.Reservation;
 import com.resortmanagement.system.common.audit.Auditable;
 
@@ -53,25 +49,17 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "invoice")
+
 @Getter
 @Setter
+@Entity
+@Table(name = "invoice")
 public class Invoice extends Auditable {
 
     @Id
     @UuidGenerator
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "invoice_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "invoice_id", updatable = false, nullable = false)
     private UUID id;
-
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "folio_id", columnDefinition = "CHAR(36)")
-    private UUID folioId;
-
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "reservation_id", columnDefinition = "CHAR(36)")
-    private UUID reservationId;
 
     @Column(name = "invoice_number", nullable = false, unique = true, length = 64)
     private String invoiceNumber;
@@ -92,10 +80,10 @@ public class Invoice extends Auditable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "status", nullable = false)
     private InvoiceStatus status = InvoiceStatus.DRAFT;
 
-    @Column(name = "currency", length = 3)
+    @Column(name = "currency")
     private String currency = "INR";
 
     @Version
@@ -111,8 +99,7 @@ public class Invoice extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id", insertable = false, updatable = false)
-    private Reservation reservation; // Reference to Reservation entity (avoiding direct import to prevent circular
-    // dependency)
+    private Reservation reservation; 
 
     @OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Payment> payments = new ArrayList<>();

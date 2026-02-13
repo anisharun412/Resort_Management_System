@@ -19,7 +19,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import com.resortmanagement.system.common.audit.Auditable;
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,11 +33,11 @@ import lombok.Setter;
 @Table(name = "report_meta")
 @Getter
 @Setter
-public class ReportMeta extends Auditable {
+public class ReportMeta extends AuditableSoftDeletable{
 
     @Id
     @UuidGenerator
-    @Column(name = "report_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "report_id", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank
@@ -50,7 +50,7 @@ public class ReportMeta extends Auditable {
     @Column(name = "last_run_at")
     private Instant lastRunAt;
 
-    @Column(name = "owner_id", columnDefinition = "CHAR(36)")
+    @Column(name = "owner_id")
     private UUID ownerId;
 
     @Override

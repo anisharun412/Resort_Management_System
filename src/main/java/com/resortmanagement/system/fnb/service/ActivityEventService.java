@@ -52,6 +52,6 @@ public class ActivityEventService {
     public void delete(UUID id) {
         // Assuming soft delete if supported, but repo method was softDeleteById in view?
         // Checking view_file output from step 254: repository.softDeleteById(id);
-        repository.softDeleteById(id);
+        repository.softDeleteById(id, java.time.Instant.now());
     }
 }

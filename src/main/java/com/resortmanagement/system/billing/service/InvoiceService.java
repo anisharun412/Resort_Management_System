@@ -8,9 +8,13 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.resortmanagement.system.billing.entity.Folio;
 import com.resortmanagement.system.billing.entity.Invoice;
 import com.resortmanagement.system.billing.entity.InvoiceStatus;
+import com.resortmanagement.system.billing.repository.FolioRepository;
 import com.resortmanagement.system.billing.repository.InvoiceRepository;
+import com.resortmanagement.system.booking.entity.Reservation;
+import com.resortmanagement.system.booking.repository.ReservationRepository;
 import com.resortmanagement.system.common.exception.ApplicationException;
 
 /**
@@ -28,9 +32,17 @@ import com.resortmanagement.system.common.exception.ApplicationException;
 public class InvoiceService {
 
     private final InvoiceRepository repository;
+    private final FolioRepository folioRepository;
+    private final ReservationRepository reservationRepository;
 
-    public InvoiceService(InvoiceRepository repository) {
+    public InvoiceService(
+        InvoiceRepository repository,
+        FolioRepository folioRepository,
+        ReservationRepository reservationRepository
+    ) {
         this.repository = repository;
+        this.folioRepository = folioRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     @Transactional(readOnly = true)
@@ -53,9 +65,23 @@ public class InvoiceService {
         return repository.findByStatus(status);
     }
 
+    @Transactional(readOnly = true)
+    public Reservation getReservationForInvoice(UUID invoiceId) {
+        Invoice invoice = repository.findById(invoiceId)
+                .orElseThrow(() -> new ApplicationException("Invoice not found with id: " + invoiceId));
+        return invoice.getReservation();
+    }
+
+    @Transactional(readOnly = true)
+    public Folio getFolioForInvoice(UUID invoiceId) {
+        Invoice invoice = repository.findById(invoiceId)
+                .orElseThrow(() -> new ApplicationException("Invoice not found with id: " + invoiceId));
+        return invoice.getFolio();
+    }
+
     public Invoice save(Invoice invoice) {
         // Validation: ensure required fields are present
-        if (invoice.getFolioId() == null) {
+        if (invoice.getFolio() == null) {
             throw new ApplicationException("Folio ID is required for invoice");
         }
         if (invoice.getTotalAmount() == null) {

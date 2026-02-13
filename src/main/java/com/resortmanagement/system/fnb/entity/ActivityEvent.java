@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 import com.resortmanagement.system.common.enums.ActivityEventStatus;
 import com.resortmanagement.system.hr.entity.Employee;
@@ -32,8 +29,7 @@ public class ActivityEvent extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name="activity_event_id", columnDefinition = "CHAR(36)")
+    @Column(name="activity_event_id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(nullable = false)

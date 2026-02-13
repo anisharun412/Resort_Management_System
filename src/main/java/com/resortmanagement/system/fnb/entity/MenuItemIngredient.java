@@ -3,9 +3,6 @@ package com.resortmanagement.system.fnb.entity;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.Auditable;
 import com.resortmanagement.system.inventory.entity.InventoryItem;
 
@@ -28,7 +25,6 @@ public class MenuItemIngredient extends Auditable {
 
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.CHAR)
     @Column(name="menu_item_ingredient_id")
     private UUID id;
 

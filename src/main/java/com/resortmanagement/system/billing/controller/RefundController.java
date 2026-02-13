@@ -60,6 +60,7 @@ public class RefundController {
     @PostMapping
     public ResponseEntity<RefundResponse> create(@Valid @RequestBody RefundRequest request) {
         Refund refund = BillingMapper.toEntity(request);
+        refund.setPayment(service.getRefund(request.getPaymentId()));
         Refund created = service.save(refund);
         return ResponseEntity.status(HttpStatus.CREATED).body(BillingMapper.toResponse(created));
     }

@@ -42,7 +42,7 @@ public class AuditLog {
 
     @Id
     @UuidGenerator
-    @Column(name = "audit_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "audit_id", updatable = false, nullable = false)
     private UUID id;
 
     @NotBlank
@@ -50,7 +50,7 @@ public class AuditLog {
     private String targetEntity;
 
     @NotNull
-    @Column(name = "target_id", columnDefinition = "CHAR(36)", nullable = false)
+    @Column(name = "target_id", nullable = false)
     private UUID targetId;
 
     @NotNull
@@ -66,7 +66,7 @@ public class AuditLog {
     @Column(name = "timestamp", nullable = false)
     private Instant timestamp = Instant.now();
 
-    @Column(name = "changes_json", columnDefinition = "TEXT")
+    @Column(name = "changes_json")
     private String changesJson;
 
     @Column(name = "reason", length = 500)

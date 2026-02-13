@@ -2,6 +2,7 @@ package com.resortmanagement.system.billing.controller;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,6 @@ import com.resortmanagement.system.billing.dto.InvoiceResponse;
 import com.resortmanagement.system.billing.entity.Invoice;
 import com.resortmanagement.system.billing.mapper.BillingMapper;
 import com.resortmanagement.system.billing.service.InvoiceService;
-import java.util.stream.Collectors;
 
 import jakarta.validation.Valid;
 
@@ -39,7 +39,9 @@ public class InvoiceController {
 
     private final InvoiceService service;
 
-    public InvoiceController(InvoiceService service) {
+    public InvoiceController(
+        InvoiceService service
+    ) {
         this.service = service;
     }
 
@@ -61,6 +63,8 @@ public class InvoiceController {
     @PostMapping
     public ResponseEntity<InvoiceResponse> create(@Valid @RequestBody InvoiceRequest request) {
         Invoice invoice = BillingMapper.toEntity(request);
+        invoice.setFolio(service.getFolioForInvoice(request.getFolioId()));
+        invoice.setReservation(service.getReservationForInvoice(request.getReservationId()));
         Invoice created = service.save(invoice);
         return ResponseEntity.status(HttpStatus.CREATED).body(BillingMapper.toResponse(created));
     }
@@ -72,6 +76,8 @@ public class InvoiceController {
         }
         Invoice invoice = BillingMapper.toEntity(request);
         invoice.setId(id);
+        invoice.setFolio(service.getFolioForInvoice(id));
+        invoice.setReservation(service.getReservationForInvoice(id));
         Invoice updated = service.save(invoice);
         return ResponseEntity.ok(BillingMapper.toResponse(updated));
     }

@@ -25,10 +25,6 @@ import java.time.Instant;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.Column;
@@ -44,22 +40,17 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "refund")
+
 @Getter
 @Setter
+@Entity
+@Table(name = "refund")
 public class Refund extends Auditable {
 
     @Id
     @UuidGenerator
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "refund_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "refund_id", updatable = false, nullable = false)
     private UUID id;
-
-    @NotNull
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "payment_id", columnDefinition = "CHAR(36)", nullable = false)
-    private UUID paymentId;
 
     @NotNull
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
@@ -76,17 +67,17 @@ public class Refund extends Auditable {
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "status", nullable = false)
     private RefundStatus status = RefundStatus.REQUESTED;
 
-    @Column(name = "provider_refund_ref", length = 100)
+    @Column(name = "provider_refund_ref")
     private String providerRefundRef;
 
     // JPA Relationships - Financial record chain: Folio -> Invoice -> Payment ->
     // Refund
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "payment_id", insertable = false, updatable = false)
+    @JoinColumn(name = "payment_id")
     private Payment payment;
 
     @Override

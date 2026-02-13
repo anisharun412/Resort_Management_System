@@ -29,10 +29,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.Auditable;
 import com.resortmanagement.system.common.enums.PaymentStatus;
 
@@ -51,22 +47,17 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "payment")
+
 @Getter
 @Setter
+@Entity
+@Table(name = "payment")
 public class Payment extends Auditable {
 
     @Id
     @UuidGenerator
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "payment_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "payment_id", updatable = false, nullable = false)
     private UUID id;
-
-    @NotNull
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "invoice_id", columnDefinition = "CHAR(36)", nullable = false)
-    private UUID invoiceId;
 
     @NotNull
     @Column(name = "amount", nullable = false, precision = 10, scale = 2)
@@ -77,15 +68,18 @@ public class Payment extends Auditable {
     @Column(name = "payment_method", nullable = false, length = 20)
     private PaymentMethod paymentMethod;
 
-    @Column(name = "transaction_ref", length = 100)
+    @Column(name = "transaction_reference")
     private String transactionRef;
+
+    @Column(name="currency")
+    private String currency;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "status", nullable = false)
     private PaymentStatus status = PaymentStatus.PENDING;
 
-    @Column(name = "provider_response", columnDefinition = "TEXT")
+    @Column(name = "provider_response")
     private String providerResponse;
 
     @Column(name = "processed_at")
@@ -95,7 +89,7 @@ public class Payment extends Auditable {
     // Refund
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "invoice_id", insertable = false, updatable = false)
+    @JoinColumn(name = "invoice_id")
     private Invoice invoice;
 
     @OneToMany(mappedBy = "payment", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)

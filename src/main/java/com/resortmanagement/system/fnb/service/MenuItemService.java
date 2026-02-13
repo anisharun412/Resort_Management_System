@@ -4,7 +4,9 @@ import com.resortmanagement.system.fnb.entity.MenuItem;
 import com.resortmanagement.system.fnb.repository.MenuItemRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.resortmanagement.system.fnb.dto.response.MenuItemResponse;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -31,24 +33,24 @@ public class MenuItemService {
     /**
      * Fetch only active (not soft-deleted) menu items
      */
-    public List<com.resortmanagement.system.fnb.dto.response.MenuItemResponse> findAllActive() {
+    public List<MenuItemResponse> findAllActive() {
         return repository.findAllActive().stream()
                 .map(mapper::toResponse)
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    public List<com.resortmanagement.system.fnb.dto.response.MenuItemResponse> findAll() {
+    public List<MenuItemResponse> findAll() {
         return repository.findAll().stream()
                 .map(mapper::toResponse)
                 .collect(java.util.stream.Collectors.toList());
     }
 
-    public Optional<com.resortmanagement.system.fnb.dto.response.MenuItemResponse> findById(UUID id) {
+    public Optional<MenuItemResponse> findById(UUID id) {
         return repository.findById(id).map(mapper::toResponse);
     }
 
     @Transactional
-    public com.resortmanagement.system.fnb.dto.response.MenuItemResponse create(com.resortmanagement.system.fnb.dto.request.MenuItemRequest request) {
+    public MenuItemResponse create(com.resortmanagement.system.fnb.dto.request.MenuItemRequest request) {
         MenuItem entity = mapper.toEntity(request);
         
         if (request.getMenuId() != null) {
@@ -115,6 +117,6 @@ public class MenuItemService {
      */
     @Transactional
     public void delete(UUID id) {
-        repository.softDeleteById(id);
+        repository.softDeleteById(id, Instant.now());
     }
 }

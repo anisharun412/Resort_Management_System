@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.billing.entity.Folio;
 import com.resortmanagement.system.booking.entity.BookingGuest;
 import com.resortmanagement.system.booking.entity.Reservation;
@@ -37,8 +34,7 @@ import lombok.Setter;
 public class Order extends AuditableSoftDeletable {
 
     @Id
-    @GeneratedValue
-    @JdbcTypeCode(SqlTypes.CHAR)
+    @GeneratedValue    
     @Column(name = "order_id")
     private UUID id;
 

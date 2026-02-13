@@ -72,9 +72,6 @@ public class Reservation extends AuditableSoftDeletable {
     private UUID bookingSourceId;
     private Boolean isPackageBooking;
 
-    @Column(name = "package_id")
-    private UUID packageId;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "package_id", insertable = false, updatable = false)
     private Package packageEntity;

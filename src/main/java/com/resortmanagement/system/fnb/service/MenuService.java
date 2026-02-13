@@ -6,6 +6,7 @@ import com.resortmanagement.system.fnb.repository.MenuRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -56,6 +57,6 @@ public class MenuService {
     // Soft delete menu
     @Transactional
     public void delete(UUID id) {
-        repository.softDeleteById(id);
+        repository.softDeleteById(id, Instant.now());
     }
 }

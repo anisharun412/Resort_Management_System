@@ -24,7 +24,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import com.resortmanagement.system.common.audit.Auditable;
+import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 import com.resortmanagement.system.room.entity.RoomType;
 
 import jakarta.persistence.Column;
@@ -41,7 +41,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "rate_plan")
-public class RatePlan extends Auditable {
+public class RatePlan extends AuditableSoftDeletable {
     @Id
     @UuidGenerator
     @Column(name = "rate_plan_id", updatable = false, nullable = false)

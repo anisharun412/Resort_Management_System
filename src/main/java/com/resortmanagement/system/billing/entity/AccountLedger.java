@@ -29,10 +29,6 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.Auditable;
 
 import jakarta.persistence.Column;
@@ -47,16 +43,16 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "account_ledger")
+
 @Getter
 @Setter
+@Entity
+@Table(name = "account_ledger")
 public class AccountLedger extends Auditable {
 
     @Id
     @UuidGenerator
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "ledger_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "ledger_id")
     private UUID id;
 
     @NotBlank
@@ -75,7 +71,7 @@ public class AccountLedger extends Auditable {
     @Column(name = "balance", precision = 15, scale = 2)
     private BigDecimal balance = BigDecimal.ZERO;
 
-    @Column(name = "currency", length = 3)
+    @Column(name = "currency")
     private String currency = "INR";
 
     @Version

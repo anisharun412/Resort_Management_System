@@ -26,10 +26,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.hibernate.annotations.UuidGenerator;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.booking.entity.BookingGuest;
 import com.resortmanagement.system.booking.entity.Reservation;
 import com.resortmanagement.system.common.audit.Auditable;
@@ -50,21 +46,17 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity
-@Table(name = "folio")
+
 @Getter
 @Setter
+@Entity
+@Table(name = "folio")
 public class Folio extends Auditable {
 
     @Id
     @UuidGenerator
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "folio_id", columnDefinition = "CHAR(36)", updatable = false, nullable = false)
+    @Column(name = "folio_id", updatable = false, nullable = false)
     private UUID id;
-
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "reservation_id", columnDefinition = "CHAR(36)")
-    private UUID reservationId;
 
     @Column(name = "folio_number", nullable = false, unique = true, length = 64)
     private String folioNumber;
@@ -72,10 +64,6 @@ public class Folio extends Auditable {
     @NotBlank
     @Column(name = "name", nullable = false, length = 100)
     private String name;
-
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name = "booking_guest_id", columnDefinition = "CHAR(36)")
-    private UUID bookingGuestId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
@@ -90,13 +78,11 @@ public class Folio extends Auditable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id", insertable = false, updatable = false)
-    private Reservation reservation; // Reference to Reservation entity (avoiding direct import to prevent circular
-    // dependency)
+    private Reservation reservationId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booking_guest_id", insertable = false, updatable = false)
-    private BookingGuest bookingGuest; // Reference to BookingGuest entity (avoiding direct import to prevent circular
-    // dependency)
+    private BookingGuest bookingGuestId; 
 
     @OneToMany(mappedBy = "folio", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<Invoice> invoices = new ArrayList<>();

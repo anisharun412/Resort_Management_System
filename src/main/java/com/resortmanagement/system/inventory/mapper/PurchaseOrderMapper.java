@@ -19,7 +19,7 @@ public class PurchaseOrderMapper {
             return null;
         }
         PurchaseOrder entity = new PurchaseOrder();
-        entity.setSupplierId(supplier.getId());
+        entity.setSupplierId(supplier);
         entity.setExpectedDelivery(request.getExpectedDelivery());
         // Status, totalAmount, lines are handled by service logic
         return entity;
@@ -32,8 +32,8 @@ public class PurchaseOrderMapper {
         PurchaseOrderResponse response = new PurchaseOrderResponse();
         response.setId(entity.getId());
         response.setPoNumber(entity.getPoNumber());
-        response.setSupplierId(entity.getSupplierId());
-        response.setSupplierName(supplier != null ? supplier.getName() : null);
+        response.setSupplierId(supplier.getId());
+        response.setSupplierName(supplier.getName());
         response.setStatus(entity.getStatus());
         response.setExpectedDelivery(entity.getExpectedDelivery());
         response.setTotalAmount(entity.getTotalAmount());

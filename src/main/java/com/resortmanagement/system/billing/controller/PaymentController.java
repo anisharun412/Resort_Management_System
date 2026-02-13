@@ -60,6 +60,7 @@ public class PaymentController {
     @PostMapping
     public ResponseEntity<PaymentResponse> create(@Valid @RequestBody PaymentRequest request) {
         Payment payment = BillingMapper.toEntity(request);
+        payment.setInvoice(service.getInvoice(request.getInvoiceId()));
         Payment created = service.save(payment);
         return ResponseEntity.status(HttpStatus.CREATED).body(BillingMapper.toResponse(created));
     }

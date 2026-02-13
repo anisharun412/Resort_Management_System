@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,7 +57,7 @@ public class SupplierService {
      */
     @Transactional
     public void delete(UUID id) {
-        repository.softDeleteById(id);
+        repository.softDeleteById(id, java.time.Instant.now());
     }
 }
 

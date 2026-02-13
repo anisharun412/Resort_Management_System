@@ -8,8 +8,10 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.resortmanagement.system.billing.entity.Payment;
 import com.resortmanagement.system.billing.entity.Refund;
 import com.resortmanagement.system.billing.entity.RefundStatus;
+import com.resortmanagement.system.billing.repository.PaymentRepository;
 import com.resortmanagement.system.billing.repository.RefundRepository;
 import com.resortmanagement.system.common.exception.ApplicationException;
 
@@ -28,9 +30,11 @@ import com.resortmanagement.system.common.exception.ApplicationException;
 public class RefundService {
 
     private final RefundRepository repository;
-
-    public RefundService(RefundRepository repository) {
+    private final PaymentRepository paymentRepository;
+    
+    public RefundService(RefundRepository repository, PaymentRepository paymentRepository) {
         this.repository = repository;
+        this.paymentRepository = paymentRepository;
     }
 
     @Transactional(readOnly = true)
@@ -53,9 +57,15 @@ public class RefundService {
         return repository.findByStatus(status);
     }
 
+    @Transactional(readOnly = true)
+    public Payment getRefund(UUID refundId) {
+        return paymentRepository.findById(refundId)
+                .orElseThrow(() -> new ApplicationException("Refund not found with id: " + refundId));
+    }
+
     public Refund save(Refund refund) {
         // Validation: ensure required fields are present
-        if (refund.getPaymentId() == null) {
+        if (refund.getPayment() == null) {
             throw new ApplicationException("Payment ID is required for refund");
         }
         if (refund.getAmount() == null || refund.getAmount().signum() <= 0) {

@@ -1,7 +1,6 @@
 package com.resortmanagement.system.billing.repository;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,9 +21,11 @@ import com.resortmanagement.system.billing.entity.FolioStatus;
 @Repository
 public interface FolioRepository extends JpaRepository<Folio, UUID> {
     
-    List<Folio> findByReservationId(UUID reservationId);
+    List<Folio> findAllByReservationId(UUID reservationId);
     
     List<Folio> findByStatus(FolioStatus status);
     
-    Optional<Folio> findByReservationIdAndName(UUID reservationId, String name);
+    Folio findByReservationIdAndName(UUID reservationId, String name);
+
+    Folio findByReservationId(UUID reservationId);
 }

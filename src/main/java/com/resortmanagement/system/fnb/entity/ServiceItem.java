@@ -3,9 +3,6 @@ package com.resortmanagement.system.fnb.entity;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 
 import jakarta.persistence.Column;
@@ -24,7 +21,6 @@ public class ServiceItem extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.CHAR)
     @Column(name="service_item_id")
     private UUID id;
 

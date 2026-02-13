@@ -20,10 +20,7 @@ package com.resortmanagement.system.booking.entity;
 
 import java.util.UUID;
 
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 import com.resortmanagement.system.common.enums.GuestType;
 import com.resortmanagement.system.common.guest.Guest;
@@ -46,7 +43,7 @@ import lombok.Setter;
 @Table(name = "booking_guest")
 public class BookingGuest extends AuditableSoftDeletable {
     @Id
-    @JdbcTypeCode(SqlTypes.CHAR)
+    
     @UuidGenerator
     @Column(name = "booking_guest_id", updatable = false, nullable = false)
     private UUID id;

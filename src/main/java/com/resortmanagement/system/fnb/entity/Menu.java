@@ -4,9 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
 import com.resortmanagement.system.common.audit.AuditableSoftDeletable;
 
 import jakarta.persistence.CascadeType;
@@ -28,8 +25,7 @@ public class Menu extends AuditableSoftDeletable {
 
     @Id
     @GeneratedValue
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(name="menu_id", columnDefinition = "CHAR(36)")
+    @Column(name="menu_id")
     private UUID id;
 
     @Column(nullable = false, unique = true)

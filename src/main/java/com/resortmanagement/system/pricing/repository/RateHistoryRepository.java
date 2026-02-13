@@ -16,7 +16,7 @@ public interface RateHistoryRepository extends JpaRepository<RateHistory, UUID> 
 
     @Query("""
         SELECT r FROM RateHistory r
-        WHERE r.ratePlan.id = :ratePlanId
+        WHERE r.ratePlanId.id = :ratePlanId
         AND :date BETWEEN r.startDate AND r.endDate
     """)
     Optional<RateHistory> findApplicableRate(

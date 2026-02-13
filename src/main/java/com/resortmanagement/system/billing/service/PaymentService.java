@@ -8,7 +8,9 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.resortmanagement.system.billing.entity.Invoice;
 import com.resortmanagement.system.billing.entity.Payment;
+import com.resortmanagement.system.billing.repository.InvoiceRepository;
 import com.resortmanagement.system.billing.repository.PaymentRepository;
 import com.resortmanagement.system.common.enums.PaymentStatus;
 import com.resortmanagement.system.common.exception.ApplicationException;
@@ -28,9 +30,11 @@ import com.resortmanagement.system.common.exception.ApplicationException;
 public class PaymentService {
 
     private final PaymentRepository repository;
+    private final InvoiceRepository invoiceRepository;
 
-    public PaymentService(PaymentRepository repository) {
+    public PaymentService(PaymentRepository repository, InvoiceRepository invoiceRepository) {
         this.repository = repository;
+        this.invoiceRepository = invoiceRepository;
     }
 
     @Transactional(readOnly = true)
@@ -48,7 +52,11 @@ public class PaymentService {
         return repository.findByInvoiceId(invoiceId);
     }
 
-
+    @Transactional(readOnly = true)
+    public Invoice getInvoice(UUID invoiceId) {
+        return invoiceRepository.findById(invoiceId)
+                .orElseThrow(() -> new ApplicationException("Invoice not found with id: " + invoiceId));
+    }
 
     @Transactional(readOnly = true)
     public Optional<Payment> findByTransactionRef(String transactionRef) {
@@ -57,7 +65,7 @@ public class PaymentService {
 
     public Payment save(Payment payment) {
         // Validation: ensure required fields are present
-        if (payment.getInvoiceId() == null) {
+        if (payment.getInvoice() == null) {
             throw new ApplicationException("Invoice ID is required for payment");
         }
         if (payment.getAmount() == null || payment.getAmount().signum() <= 0) {
