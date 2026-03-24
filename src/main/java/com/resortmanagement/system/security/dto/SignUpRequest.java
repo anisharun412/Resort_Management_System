@@ -43,7 +43,7 @@ public class SignUpRequest {
     private String address;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dob;
+    private LocalDate dob; 
 
     private Integer age;
 
