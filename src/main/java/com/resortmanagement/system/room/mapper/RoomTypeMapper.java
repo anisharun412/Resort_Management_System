@@ -20,6 +20,12 @@ public class RoomTypeMapper {
         res.setAreaSqFt(entity.getAreaSqFt());
         res.setMaxOccupancy(entity.getMaxOccupancy());
         res.setAmenitiesSummary(entity.getAmenitiesSummary());
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
+        res.setDeleted(entity.isDeleted());
+        res.setDeletedAt(entity.getDeletedAt());
         return res;
     }
 

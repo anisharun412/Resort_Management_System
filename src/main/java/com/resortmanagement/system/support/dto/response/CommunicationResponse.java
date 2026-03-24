@@ -1,5 +1,6 @@
 package com.resortmanagement.system.support.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -30,6 +31,11 @@ public class CommunicationResponse {
     private CommunicationStatus status;
 
     private LocalDateTime sentAt;
-
     private String channel;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

@@ -44,6 +44,10 @@ public class ShiftScheduleMapper {
                 .location(entity.getLocation())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
+                .deleted(entity.isDeleted())
+                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 

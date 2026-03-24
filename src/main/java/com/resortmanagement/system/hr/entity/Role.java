@@ -36,6 +36,6 @@ public class Role extends AuditableSoftDeletable {
     @Column
     private String description;
 
-    @Column(name = "permissions_json")
+    @Column(name = "permissions_json", columnDefinition = "JSON")
     private String permissionsJson; // JSON list of permissions
 }

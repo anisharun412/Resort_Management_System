@@ -12,4 +12,10 @@ public class ReportMetaResponse {
     private String scheduleString;
     private Instant lastRunAt;
     private UUID ownerId;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

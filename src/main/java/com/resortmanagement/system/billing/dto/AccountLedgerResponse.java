@@ -15,4 +15,8 @@ public class AccountLedgerResponse {
     private AccountType accountType;
     private BigDecimal balance;
     private String currency;
+    private String createdBy;
+    private java.time.Instant createdAt;
+    private String updatedBy;
+    private java.time.Instant updatedAt;
 }

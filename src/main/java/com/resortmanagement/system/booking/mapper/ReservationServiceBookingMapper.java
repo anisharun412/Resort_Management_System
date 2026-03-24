@@ -31,6 +31,12 @@ public class ReservationServiceBookingMapper {
         res.setPrice(entity.getPrice());
         res.setStatus(entity.getStatus());
         res.setIncludedInPackage(entity.getIs_included_in_package());
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
+        res.setDeleted(entity.isDeleted());
+        res.setDeletedAt(entity.getDeletedAt());
         return res;
     }
 

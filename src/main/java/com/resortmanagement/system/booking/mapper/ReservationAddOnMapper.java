@@ -32,6 +32,12 @@ public class ReservationAddOnMapper {
         res.setUnitPrice(entity.getUnitPrice());
         res.setTotalPrice(entity.getTotalPrice());
         res.setStatus(entity.getStatus());
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
+        res.setDeleted(entity.isDeleted());
+        res.setDeletedAt(entity.getDeletedAt());
         return res;
     }
 }

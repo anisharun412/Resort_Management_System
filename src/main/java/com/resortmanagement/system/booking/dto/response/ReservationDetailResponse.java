@@ -1,5 +1,6 @@
 package com.resortmanagement.system.booking.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
@@ -23,4 +24,10 @@ public class ReservationDetailResponse{
     private List<ReservationAddOnResponse> addOns;
     private List<ReservationDailyRateResponse> dailyRates;
     private List<ReservationServiceBookingResponse> services;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

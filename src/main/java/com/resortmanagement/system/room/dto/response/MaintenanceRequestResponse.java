@@ -1,5 +1,6 @@
 package com.resortmanagement.system.room.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -26,4 +27,10 @@ public class MaintenanceRequestResponse {
     private MaintenanceSeverity severity;
     private MaintenanceStatus status;
     private LocalDateTime resolvedAt;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

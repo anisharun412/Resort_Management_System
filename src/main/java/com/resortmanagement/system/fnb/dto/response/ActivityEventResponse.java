@@ -6,8 +6,11 @@ import java.util.UUID;
 
 import com.resortmanagement.system.common.enums.ActivityEventStatus;
 
-// import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class ActivityEventResponse {
     private UUID id;
     private String title;
@@ -18,78 +21,11 @@ public class ActivityEventResponse {
     private UUID instructorId;
     private BigDecimal price;
     private ActivityEventStatus status;
-
-    // Manual Getters and Setters
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Instant getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Instant startTime) {
-        this.startTime = startTime;
-    }
-
-    public Instant getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Instant endTime) {
-        this.endTime = endTime;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public UUID getInstructorId() {
-        return instructorId;
-    }
-
-    public void setInstructorId(UUID instructorId) {
-        this.instructorId = instructorId;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public ActivityEventStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ActivityEventStatus status) {
-        this.status = status;
-    }
+    // Audit fields (AuditableSoftDeletable)
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

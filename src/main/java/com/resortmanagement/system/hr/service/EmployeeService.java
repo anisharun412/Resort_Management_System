@@ -9,23 +9,22 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.resortmanagement.system.hr.dto.EmployeeRoleDTO;
 import com.resortmanagement.system.hr.dto.employee.EmployeeRequest;
 import com.resortmanagement.system.hr.dto.employee.EmployeeResponse;
 import com.resortmanagement.system.hr.entity.Employee;
 import com.resortmanagement.system.hr.mapper.EmployeeMapper;
 import com.resortmanagement.system.hr.repository.EmployeeRepository;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class EmployeeService {
 
     private final EmployeeRepository repository;
     private final EmployeeMapper mapper;
-
-    public EmployeeService(EmployeeRepository employeeRepository, EmployeeMapper employeeMapper) {
-        this.repository = employeeRepository;
-        this.mapper = employeeMapper;
-    }
+    private final EmployeeRoleService employeeRoleService;
 
     @Transactional(readOnly = true)
     public Page<EmployeeResponse> findAll(Pageable pageable) {
@@ -54,6 +53,15 @@ public class EmployeeService {
         }
 
         Employee employee = mapper.toEntity(dto);
+        if(dto.getRoleId() != null){
+            EmployeeRoleDTO employeeRoleDTO = new EmployeeRoleDTO();
+            employeeRoleDTO.setEmployeeId(employee.getId());
+            employeeRoleDTO.setRoleId(dto.getRoleId());
+            employeeRoleDTO.setEmployeeName(employee.getFirstName()+" "+employee.getLastName());
+            employeeRoleDTO.setAssignedDate(dto.getAssignedDate());
+            employeeRoleDTO.setEndDate(dto.getEndDate());
+            employeeRoleService.save(employeeRoleDTO);
+        }
         Employee saved = repository.save(employee);
         return mapper.toResponse(saved);
     }
@@ -62,6 +70,15 @@ public class EmployeeService {
         return repository.findByIdAndDeletedFalse(id)
                 .map(existing -> {
                     mapper.updateEntity(existing, dto);
+                    if(dto.getRoleId() != null){
+                        EmployeeRoleDTO employeeRoleDTO = new EmployeeRoleDTO();
+                        employeeRoleDTO.setEmployeeId(existing.getId());
+                        employeeRoleDTO.setRoleId(dto.getRoleId());
+                        employeeRoleDTO.setEmployeeName(existing.getFirstName()+" "+existing.getLastName());
+                        employeeRoleDTO.setAssignedDate(dto.getAssignedDate());
+                        employeeRoleDTO.setEndDate(dto.getEndDate());
+                        employeeRoleService.save(employeeRoleDTO);
+                    }
                     return mapper.toResponse(repository.save(existing));
                 })
                 .orElseThrow(() -> new RuntimeException("Employee not found with id " + id));

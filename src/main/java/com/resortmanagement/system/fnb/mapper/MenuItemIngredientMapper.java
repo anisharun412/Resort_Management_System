@@ -24,6 +24,10 @@ public class MenuItemIngredientMapper {
             res.setInventoryItemId(entity.getInventoryItem().getId());
             res.setInventoryItemName(entity.getInventoryItem().getName());
         }
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
         return res;
     }
 }

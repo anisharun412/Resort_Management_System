@@ -48,6 +48,13 @@ public class OrderMapper {
         ? entity.getOrderItems().stream().map(this::toItemResponse).collect(Collectors.toList())
         : Collections.emptyList());
 
+    response.setCreatedBy(entity.getCreatedBy());
+    response.setCreatedAt(entity.getCreatedAt());
+    response.setUpdatedBy(entity.getUpdatedBy());
+    response.setUpdatedAt(entity.getUpdatedAt());
+    response.setDeleted(entity.isDeleted());
+    response.setDeletedAt(entity.getDeletedAt());
+
     return response;
 }
 
@@ -64,6 +71,12 @@ public class OrderMapper {
         res.setQty(item.getQuantity());
         res.setUnitPrice(item.getUnitPrice());
         res.setTotalPrice(item.getTotalPrice());
+        res.setCreatedBy(item.getCreatedBy());
+        res.setCreatedAt(item.getCreatedAt());
+        res.setUpdatedBy(item.getUpdatedBy());
+        res.setUpdatedAt(item.getUpdatedAt());
+        res.setDeleted(item.isDeleted());
+        res.setDeletedAt(item.getDeletedAt());
         return res;
     }
 }

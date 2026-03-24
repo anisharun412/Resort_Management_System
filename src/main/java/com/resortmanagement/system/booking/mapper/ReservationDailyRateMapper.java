@@ -16,6 +16,10 @@ public class ReservationDailyRateMapper {
         res.setRatePlanId(
             entity.getRatePlan() != null ? entity.getRatePlan().getId() : null
         );
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
         return res;
     }
 }

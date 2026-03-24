@@ -35,6 +35,10 @@ public class InventoryItemMapper {
         response.setQuantityOnHand(entity.getQuantityOnHand());
         response.setReorderPoint(entity.getReorderPoint());
         response.setUnitCost(entity.getUnitCost());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         return response;
     }
 

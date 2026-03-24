@@ -46,6 +46,10 @@ public class PayrollMapper {
                 .paidAt(entity.getPaidAt())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
+                .deleted(entity.isDeleted())
+                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 

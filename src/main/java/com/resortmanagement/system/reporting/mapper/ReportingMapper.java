@@ -22,6 +22,12 @@ public class ReportingMapper {
         response.setScheduleString(entity.getScheduleString());
         response.setLastRunAt(entity.getLastRunAt());
         response.setOwnerId(entity.getOwnerId());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
+        response.setDeleted(entity.isDeleted());
+        response.setDeletedAt(entity.getDeletedAt());
         return response;
     }
 

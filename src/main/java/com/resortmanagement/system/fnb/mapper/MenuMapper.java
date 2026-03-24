@@ -27,6 +27,12 @@ public class MenuMapper {
         response.setId(entity.getId());
         response.setName(entity.getName());
         response.setDescription(entity.getDescription());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
+        response.setDeleted(entity.isDeleted());
+        response.setDeletedAt(entity.getDeletedAt());
         return response;
     }
 

@@ -37,6 +37,10 @@ public class PurchaseOrderMapper {
         response.setStatus(entity.getStatus());
         response.setExpectedDelivery(entity.getExpectedDelivery());
         response.setTotalAmount(entity.getTotalAmount());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         
         if (lines != null) {
             response.setLines(lines.stream()

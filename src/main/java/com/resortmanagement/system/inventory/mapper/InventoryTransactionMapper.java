@@ -19,6 +19,10 @@ public class InventoryTransactionMapper {
         response.setQtyChange(entity.getQtyChange());
         response.setSourceType(entity.getSourceType());
         response.setSourceId(entity.getSourceId());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         return response;
     }
 }

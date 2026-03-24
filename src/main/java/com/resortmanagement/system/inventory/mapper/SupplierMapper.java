@@ -33,6 +33,12 @@ public class SupplierMapper {
         response.setPhone(entity.getPhone());
         response.setEmail(entity.getEmail());
         response.setAddress(entity.getAddress());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
+        response.setDeleted(entity.isDeleted());
+        response.setDeletedAt(entity.getDeletedAt());
         return response;
     }
 

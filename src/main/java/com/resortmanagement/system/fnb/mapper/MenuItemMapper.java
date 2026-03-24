@@ -45,6 +45,13 @@ public class MenuItemMapper {
                 .collect(Collectors.toList()));
         }
 
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
+        response.setDeleted(entity.isDeleted());
+        response.setDeletedAt(entity.getDeletedAt());
+
         return response;
     }
 
@@ -60,6 +67,10 @@ public class MenuItemMapper {
             ingredient.getInventoryItem() != null ? ingredient.getInventoryItem().getName() : null);
         response.setQuantityRequired(ingredient.getQuantityRequired());
         response.setUnit(ingredient.getUnit());
+        response.setCreatedBy(ingredient.getCreatedBy());
+        response.setCreatedAt(ingredient.getCreatedAt());
+        response.setUpdatedBy(ingredient.getUpdatedBy());
+        response.setUpdatedAt(ingredient.getUpdatedAt());
         return response;
     }
 

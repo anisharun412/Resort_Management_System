@@ -1,5 +1,6 @@
 package com.resortmanagement.system.booking.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -18,4 +19,10 @@ public class ReservationResponse{
     private LocalDate endDate;
     private ReservationStatus status;
     private Integer numGuests;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

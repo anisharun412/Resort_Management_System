@@ -1,8 +1,5 @@
 package com.resortmanagement.system.support.mapper;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-
 import org.springframework.stereotype.Component;
 
 import com.resortmanagement.system.support.dto.response.HelpTicketResponse;
@@ -30,12 +27,7 @@ public class HelpTicketMapper {
             res.setReservationId(entity.getReservation().getId());
 
         if (entity.getCreatedAt() != null) {
-            res.setCreatedAt(
-                LocalDateTime.ofInstant(
-                    entity.getCreatedAt(),
-                    ZoneId.systemDefault()
-                )
-            );
+            res.setCreatedAt(entity.getCreatedAt());
         }
 
         return res;

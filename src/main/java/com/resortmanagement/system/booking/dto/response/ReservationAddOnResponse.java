@@ -1,5 +1,6 @@
 package com.resortmanagement.system.booking.dto.response;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import com.resortmanagement.system.common.enums.AddOnStatus;
@@ -17,4 +18,10 @@ public class ReservationAddOnResponse{
     private Double totalPrice;
     private Double unitPrice;
     private AddOnStatus status;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

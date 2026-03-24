@@ -58,9 +58,6 @@ public class Employee extends AuditableSoftDeletable {
 
     @Column
     private String phone;
-    
-    @Column(nullable = false)
-    private String credentialsHash;
 
     @Column(nullable = false)
     private LocalDate hireDate;

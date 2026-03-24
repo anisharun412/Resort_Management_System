@@ -26,4 +26,8 @@ public class EmployeeResponse {
     private List<RoleResponse> roles;
     private Instant createdAt;
     private Instant updatedAt;
+    private String createdBy;
+    private String updatedBy;
+    private boolean deleted;
+    private Instant deletedAt;
 }

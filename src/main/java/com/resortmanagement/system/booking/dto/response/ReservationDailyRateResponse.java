@@ -1,5 +1,6 @@
 package com.resortmanagement.system.booking.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -14,4 +15,8 @@ public class ReservationDailyRateResponse{
     private Boolean isPackageRate;
     private Double amount;
     private UUID ratePlanId;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
 }

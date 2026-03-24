@@ -27,6 +27,12 @@ public class BookingGuestMapper {
         res.setGuestType(entity.getGuestType());
         res.setAge(entity.getAge());
         res.setSpecialNeeds(entity.getSpecialNeeds());
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
+        res.setDeleted(entity.isDeleted());
+        res.setDeletedAt(entity.getDeletedAt());
         return res;
     }
 }

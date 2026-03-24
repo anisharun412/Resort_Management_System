@@ -1,5 +1,6 @@
 package com.resortmanagement.system.room.dto.response;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,4 +34,10 @@ public class RoomResponse {
     private List<UUID> roomBlockIds;
 
     private List<UUID> maintenanceIds;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

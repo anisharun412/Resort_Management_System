@@ -14,6 +14,10 @@ public class RoomAmenityMapper {
         res.setRoomId(entity.getRoom().getId());
         res.setAmenityId(entity.getAmenity().getId());
         res.setComplimentary(entity.getComplimentary());
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
 
         return res;
     }

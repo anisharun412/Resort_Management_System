@@ -1,5 +1,6 @@
 package com.resortmanagement.system.room.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,4 +21,10 @@ public class HousekeepingTaskResponse {
     private HousekeepingPriority priority;
     private HousekeepingStatus status;
     private String notes;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

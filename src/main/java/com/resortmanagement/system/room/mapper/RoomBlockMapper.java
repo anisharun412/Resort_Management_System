@@ -54,6 +54,13 @@ public class RoomBlockMapper {
         res.setReason(entity.getReason());
         res.setStatus(entity.getStatus());
 
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
+        res.setDeleted(entity.isDeleted());
+        res.setDeletedAt(entity.getDeletedAt());
+
         return res;
     }
 

@@ -1,5 +1,6 @@
 package com.resortmanagement.system.pricing.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -18,5 +19,9 @@ public class RateHistoryResponse {
     private String seasonName;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
 }
 

@@ -17,4 +17,8 @@ public class FolioResponse {
     private FolioStatus status;
     private BigDecimal totalAmount;
     private List<InvoiceResponse> invoices;
+    private String createdBy;
+    private java.time.Instant createdAt;
+    private String updatedBy;
+    private java.time.Instant updatedAt;
 }

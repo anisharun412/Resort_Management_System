@@ -39,6 +39,10 @@ public class EmployeeMapper {
                         : Collections.emptyList())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
+                .deleted(entity.isDeleted())
+                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 
@@ -57,7 +61,6 @@ public class EmployeeMapper {
                 .phone(request.getPhone())
                 .hireDate(request.getHireDate())
                 .status(request.getStatus())
-                .credentialsHash("TEMP_HASH") // Placeholder, should be set properly in service
                 .build();
     }
 

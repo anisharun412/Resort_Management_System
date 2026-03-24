@@ -57,4 +57,12 @@ public class SignUpRequest {
 
     @Nullable
     private Employee.EmployeeStatus status;
+
+    @Nullable
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate assignedDate;
+
+    @Nullable
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate endDate;
 }

@@ -1,6 +1,6 @@
 package com.resortmanagement.system.support.dto.response;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 import com.resortmanagement.system.support.enums.TicketPriority;
@@ -24,8 +24,13 @@ public class HelpTicketResponse {
 
     private UUID guestId;
     private UUID reservationId;
-
-    private LocalDateTime createdAt;
-
+    
     private UUID assignedTo;
+    
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

@@ -9,7 +9,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.resortmanagement.system.hr.dto.EmployeeRoleDTO;
 import com.resortmanagement.system.hr.entity.Employee;
 import com.resortmanagement.system.hr.entity.EmployeeRole;
@@ -17,6 +16,8 @@ import com.resortmanagement.system.hr.entity.Role;
 import com.resortmanagement.system.hr.repository.EmployeeRepository;
 import com.resortmanagement.system.hr.repository.EmployeeRoleRepository;
 import com.resortmanagement.system.hr.repository.RoleRepository;
+
+import tools.jackson.databind.ObjectMapper;
 
 @Service
 @Transactional
@@ -58,11 +59,11 @@ public class EmployeeRoleService {
 
         EmployeeRole entity = new EmployeeRole();
 
-        Employee employee = employeeRepository.findById(dto.getEmployeeId())
+        Employee employee = employeeRepository.findByIdAndDeletedFalse(dto.getEmployeeId())
                 .orElseThrow(() -> new IllegalArgumentException("Employee not found"));
         entity.setEmployee(employee);
 
-        Role role = roleRepository.findById(dto.getRoleId())
+        Role role = roleRepository.findByIdAndDeletedFalse(dto.getRoleId())
                 .orElseThrow(() -> new IllegalArgumentException("Role not found"));
         entity.setRole(role);
 

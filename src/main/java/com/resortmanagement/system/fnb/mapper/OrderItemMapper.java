@@ -20,6 +20,12 @@ public class OrderItemMapper {
         res.setQty(item.getQuantity());
         res.setUnitPrice(item.getUnitPrice());
         res.setTotalPrice(item.getTotalPrice());
+        res.setCreatedBy(item.getCreatedBy());
+        res.setCreatedAt(item.getCreatedAt());
+        res.setUpdatedBy(item.getUpdatedBy());
+        res.setUpdatedAt(item.getUpdatedAt());
+        res.setDeleted(item.isDeleted());
+        res.setDeletedAt(item.getDeletedAt());
         return res;
     }
 }

@@ -18,4 +18,8 @@ public class RefundResponse {
     private Instant processedAt;
     private RefundStatus status;
     private String providerRefundRef;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
 }

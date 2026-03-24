@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +36,11 @@ public class RoleService {
     @Transactional(readOnly = true)
     public Optional<RoleResponse> findById(UUID id) {
         return repository.findByIdAndDeletedFalse(id).map(mapper::toResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Optional<Role> findRoleById(UUID id) {
+        return repository.findByIdAndDeletedFalse(id);
     }
 
     public RoleResponse save(RoleRequest dto) {

@@ -12,4 +12,5 @@ import lombok.AllArgsConstructor;
 public class RoleRequest {
     private String name;
     private String description;
+    private String permissionsJson;
 }

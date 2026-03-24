@@ -1,6 +1,7 @@
 package com.resortmanagement.system.hr.dto.employee;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import com.resortmanagement.system.hr.entity.Employee.EmployeeStatus;
 
@@ -20,4 +21,7 @@ public class EmployeeRequest {
     private String phone;
     private LocalDate hireDate;
     private EmployeeStatus status;
+    private UUID roleId;
+    private LocalDate assignedDate;
+    private LocalDate endDate;
 }

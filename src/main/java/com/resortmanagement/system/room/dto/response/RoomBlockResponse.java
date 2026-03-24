@@ -1,5 +1,6 @@
 package com.resortmanagement.system.room.dto.response;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -21,4 +22,10 @@ public class RoomBlockResponse {
 
     private String reason;
     private BlockStatus status;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
+    private boolean deleted;
+    private Instant deletedAt;
 }

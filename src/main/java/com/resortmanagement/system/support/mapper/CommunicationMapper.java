@@ -23,6 +23,13 @@ public class CommunicationMapper {
         res.setGuestId(entity.getGuest() != null ? entity.getGuest().getId() : null);
         res.setReservationId(entity.getReservation() != null ? entity.getReservation().getId() : null);
 
+        res.setCreatedBy(entity.getCreatedBy());
+        res.setCreatedAt(entity.getCreatedAt());
+        res.setUpdatedBy(entity.getUpdatedBy());
+        res.setUpdatedAt(entity.getUpdatedAt());
+        res.setDeleted(entity.isDeleted());
+        res.setDeletedAt(entity.getDeletedAt());
+
         return res;
     }
 }

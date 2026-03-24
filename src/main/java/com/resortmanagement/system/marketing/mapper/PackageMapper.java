@@ -26,6 +26,10 @@ public class PackageMapper {
                 .usageLimit(entity.getUsageLimit())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
+                .deleted(entity.isDeleted())
+                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 

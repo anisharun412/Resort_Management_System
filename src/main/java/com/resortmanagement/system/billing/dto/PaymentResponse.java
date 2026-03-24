@@ -19,4 +19,8 @@ public class PaymentResponse {
     private PaymentStatus status;
     private String providerResponse;
     private Instant processedAt;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
 }

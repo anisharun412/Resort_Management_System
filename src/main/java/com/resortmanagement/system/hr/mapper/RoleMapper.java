@@ -20,8 +20,13 @@ public class RoleMapper {
                 .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
+                .permissionsJson(entity.getPermissionsJson())
                 .createdAt(entity.getCreatedAt())
                 .updatedAt(entity.getUpdatedAt())
+                .createdBy(entity.getCreatedBy())
+                .updatedBy(entity.getUpdatedBy())
+                .deleted(entity.isDeleted())
+                .deletedAt(entity.getDeletedAt())
                 .build();
     }
 
@@ -36,6 +41,7 @@ public class RoleMapper {
         return Role.builder()
                 .name(request.getName())
                 .description(request.getDescription())
+                .permissionsJson(request.getPermissionsJson())
                 .build();
     }
 
@@ -49,5 +55,6 @@ public class RoleMapper {
 
         entity.setName(request.getName());
         entity.setDescription(request.getDescription());
+        entity.setPermissionsJson(request.getPermissionsJson());
     }
 }

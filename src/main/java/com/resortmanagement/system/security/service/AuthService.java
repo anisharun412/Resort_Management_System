@@ -1,6 +1,5 @@
 package com.resortmanagement.system.security.service;
 
-import java.time.LocalDate;
 import java.util.UUID;
 import java.util.List;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -47,7 +46,6 @@ public class AuthService {
     @Transactional
     public AuthResponse signup(SignUpRequest request) {
 
-
         if (request.getRole() == null) {
             throw new IllegalArgumentException("Role must be specified: GUEST, EMPLOYEE, or ADMIN.");
         }
@@ -83,10 +81,9 @@ public class AuthService {
                 EmployeeRoleDTO employeeRoleDto = new EmployeeRoleDTO(
                     savedEmployee.getId(),
                     savedEmployee.getFirstName() + " " + savedEmployee.getLastName(),
-                    workRole.getId(),
-                    workRole.getName(),
-                    LocalDate.now(),
-                    null
+                    role.getId(),
+                    request.getAssignedDate(),
+                    request.getEndDate()
                 );
                 employeeRoleService.save(employeeRoleDto);
             }

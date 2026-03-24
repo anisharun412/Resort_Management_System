@@ -43,6 +43,10 @@ public class BillingMapper {
         response.setTaxAmount(entity.getTaxAmount());
         response.setStatus(entity.getStatus());
         response.setCurrency(entity.getCurrency());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         if (entity.getPayments() != null) {
             response.setPayments(entity.getPayments().stream()
                 .map(BillingMapper::toResponse)
@@ -70,6 +74,10 @@ public class BillingMapper {
         response.setStatus(entity.getStatus());
         response.setProviderResponse(entity.getProviderResponse());
         response.setProcessedAt(entity.getProcessedAt());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         return response;
     }
 
@@ -90,6 +98,10 @@ public class BillingMapper {
         response.setProcessedAt(entity.getProcessedAt());
         response.setStatus(entity.getStatus());
         response.setProviderRefundRef(entity.getProviderRefundRef());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         return response;
     }
     
@@ -108,6 +120,10 @@ public class BillingMapper {
         response.setName(entity.getName());
         response.setStatus(entity.getStatus());
         response.setTotalAmount(entity.getTotalAmount());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         if (entity.getInvoices() != null) {
              response.setInvoices(entity.getInvoices().stream()
                 .map(BillingMapper::toResponse)
@@ -134,6 +150,10 @@ public class BillingMapper {
         response.setAccountType(entity.getAccountType());
         response.setBalance(entity.getBalance());
         response.setCurrency(entity.getCurrency());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
         return response;
     }
 }

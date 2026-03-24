@@ -21,4 +21,8 @@ public class InvoiceResponse {
     private InvoiceStatus status;
     private String currency;
     private List<PaymentResponse> payments;
+    private String createdBy;
+    private Instant createdAt;
+    private String updatedBy;
+    private Instant updatedAt;
 }

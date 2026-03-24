@@ -2,7 +2,6 @@ package com.resortmanagement.system.fnb.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.resortmanagement.system.common.enums.ActivityEventStatus;
 import com.resortmanagement.system.fnb.dto.request.ActivityEventRequest;
 import com.resortmanagement.system.fnb.dto.response.ActivityEventResponse;
 import com.resortmanagement.system.fnb.entity.ActivityEvent;
@@ -43,6 +42,12 @@ public class ActivityEventMapper {
 );
         response.setPrice(entity.getPrice());
         response.setStatus(entity.getStatus());
+        response.setCreatedBy(entity.getCreatedBy());
+        response.setCreatedAt(entity.getCreatedAt());
+        response.setUpdatedBy(entity.getUpdatedBy());
+        response.setUpdatedAt(entity.getUpdatedAt());
+        response.setDeleted(entity.isDeleted());
+        response.setDeletedAt(entity.getDeletedAt());
         return response;
     }
 

@@ -21,6 +21,12 @@ public class HousekeepingTaskMapper {
         res.setPriority(task.getPriority());
         res.setStatus(task.getStatus());
         res.setNotes(task.getNotes());
+        res.setCreatedBy(task.getCreatedBy());
+        res.setCreatedAt(task.getCreatedAt());
+        res.setUpdatedBy(task.getUpdatedBy());
+        res.setUpdatedAt(task.getUpdatedAt());
+        res.setDeleted(task.isDeleted());
+        res.setDeletedAt(task.getDeletedAt());
 
         return res;
     }

@@ -16,8 +16,6 @@ public class EmployeeRoleDTO {
     private UUID employeeId;
     private String employeeName;
     private UUID roleId;
-    private String roleName;
-    // private String department;
     private LocalDate assignedDate;
     private LocalDate endDate;
 }

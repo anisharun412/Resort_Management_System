@@ -36,6 +36,12 @@ public class RoomMapper {
         res.setAmenityIds(mapAmenities(room.getRoomAmenities()));
         res.setRoomBlockIds(mapRoomBlocks(room.getRoomBlocks()));
         res.setMaintenanceIds(mapMaintenance(room.getMaintenanceRequests()));
+        res.setCreatedBy(room.getCreatedBy());
+        res.setCreatedAt(room.getCreatedAt());
+        res.setUpdatedBy(room.getUpdatedBy());
+        res.setUpdatedAt(room.getUpdatedAt());
+        res.setDeleted(room.isDeleted());
+        res.setDeletedAt(room.getDeletedAt());
 
         return res;
     }

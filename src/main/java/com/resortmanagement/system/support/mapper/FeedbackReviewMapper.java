@@ -13,7 +13,13 @@ public class FeedbackReviewMapper {
                 review.getRating(),
                 review.getComments(),
                 review.getResponseBy(),
-                review.getRespondedAt()
+                review.getRespondedAt(),
+                review.getCreatedBy(),
+                review.getCreatedAt(),
+                review.getUpdatedBy(),
+                review.getUpdatedAt(),
+                review.isDeleted(),
+                review.getDeletedAt()
         );
     }
 }
